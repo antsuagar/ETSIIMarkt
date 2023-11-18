@@ -71,11 +71,5 @@ class Producto(models.Model):
     def get_productos_by_precio(precio_min, precio_max):
         return Producto.objects.filter(precio__range=(precio_min, precio_max))
 
-class ProductoManager(models.Manager):
-
-    def createProducto(self, producto):
-        producto=self.create(nombre=producto.nombre, precio=producto.precio)
-        return producto
-
 
 
