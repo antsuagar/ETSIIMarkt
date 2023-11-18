@@ -1,7 +1,7 @@
 # ETSIIMarkt
 
 ## **INSTRUCCIONES DE INSTALACIÓN**
-1. Instalar python 3.11(se puede hacer desde la Microsoft Store, es muy fácil y cómodo)
+1. Instalar python 3.11(se puede hacer desde la Microsoft Store, es muy fácil y cómodo). Comprobarlo en un cms con el comando python --version.
 2. Importar el repositorio
 3. Abrir Visual Studio Code
 4. Abrir una terminal(Terminal>New terminal)
