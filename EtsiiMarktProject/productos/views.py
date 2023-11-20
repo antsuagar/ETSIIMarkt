@@ -7,6 +7,7 @@ from .models import Producto
 def catalogo(request):
     productos = Producto.objects.all()
     return render(request, 'catalogo.html', {'productos': productos})
+<<<<<<< HEAD
 =======
 
 
@@ -15,3 +16,6 @@ def index(request):
     
     return render(request, 'productos.html', contexto)
 >>>>>>> a316c19f ([dev] Vista base y de productos)
+=======
+
+>>>>>>> 7a6efd02d3ba70b9476f1f03c7959ec1114785d6
