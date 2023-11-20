@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from EtsiiMarkt.views import index
 from productos.views import catalogo
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', index, name='index'),
     path('productos/', include('productos.urls')),
     path('admin/', admin.site.urls),
     path('catalogo/', catalogo, name='catalogo'),
