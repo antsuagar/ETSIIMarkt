@@ -1,5 +1,8 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+from .models import Producto
 
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+#Catalogo de Productos
+def catalogo(request):
+    productos = Producto.objects.all()
+    return render(request, 'catalogo.html', {'productos': productos})
