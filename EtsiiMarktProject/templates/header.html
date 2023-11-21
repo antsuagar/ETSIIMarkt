@@ -1,0 +1,70 @@
+    <!-- Primera fila con logo y menú principal -->
+    <div class="container">
+        <div class="row bg-dark text-light p-3">
+            <div class="col-md-6">Redes Sociales</div>
+            <div class="col-md-6">Datos de contacto</div>
+        </div>
+        <div class="row ">            
+            <div class="col-10">
+                <!-- Aquí va tu menú principal -->
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                      <a class="navbar-brand" href="/"><img src="/media/images/logo.png" alt="Logo" class="img-fluid"></a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="home" href="/">Inicio</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/servicios">Servicios</a>
+                          </li>                          
+                          <li class="nav-item">
+                            <a class="nav-link" href="/catalogo">Catálogo de productos</a>
+                          </li> 
+                          <li class="nav-item">
+                            <a class="nav-link" href="/contacto">Contacto</a>
+                          </li> 
+                          <li class="nav-item">
+                            <a class="nav-link" href="/clientes">Clientes</a>
+                          </li> 
+                        </ul>
+                        
+                      </div>
+                    </div>
+                  </nav>
+            </div>
+            <div class="col-2">                
+                <ul class="nav users">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/login"><img src="/media/images/icono-user.png" width="32px" height="32px" /></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/cesta"><img src="/media/images/cesta.png" width="32px" height="32px"/></a>
+                    </li>                    
+                  </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Todas las categorías
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
+                      <li><a class="dropdown-item" href="#">Salud y Belleza</a></li>
+                      <li><a class="dropdown-item" href="#">Televisión</a></li>
+                    </ul>
+                  </div>
+            </div>
+            <div class="col">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="BUSCAR" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">BUSCAR</button>
+                  </form>
+            </div>
+        </div>
+    </div>
