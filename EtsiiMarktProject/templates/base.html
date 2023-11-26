@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,7 +11,7 @@
     <title>{% block title %} {% endblock %}</title>
 
     <!-- Hoja de estilos -->
-    <link rel="stylesheet" src="/static/css/styles.css">
+    <link rel="stylesheet" src="{% static 'css/styles.css' %}">
 </head>
 <body>
 

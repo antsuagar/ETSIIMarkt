@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: "Lexend Deca","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Arial,"Lexend Deca","Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: var(--bs-gray-100);
     color: var(--bs-black);
     margin: 0;
@@ -40,4 +40,11 @@ a {
     &:hover {
         background-color: darken(var(--secondary-color), 10%);
     }
+}
+
+/** NAV ****/
+
+nav.bg-body-tertiary {
+    --bs-bg-opacity: 0 !important;
+    background-color: var(--bs-white) !important;
 }
