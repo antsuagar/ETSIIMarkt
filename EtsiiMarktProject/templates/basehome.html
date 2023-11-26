@@ -29,15 +29,8 @@
     <!-- Tercera fila con menú secundario y contenido -->
     <div class="container">
           
-            <!-- Tercera fila con menú secundario y contenido -->   
-            <div class="row">
-              <div class="col-3">
-                {% include "secondary-nav.html" %}
-            </div>
-            <div class="col-9">
-                {% block content %} {% endblock %}
-            </div>       
-        </div>
+            {% block content %} {% endblock %}            
+        
     </div>
 
     <!-- Cuarta fila para el footer -->

@@ -1,18 +1,15 @@
 /* styles.css */
 
 :root {
-    --background-color: black;
     --primary-color: #1d78be;
     --secondary-color: #ffbd1a;
-    --light-color: white;
     --dark-color: #333333;
 }
 
-
 body {
     font-family: "Lexend Deca","Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: var(--light-color);
-    color: var(--dark-color);
+    background-color: var(--bs-gray-100);
+    color: var(--bs-black);
     margin: 0;
     padding: 0;
 }
@@ -35,7 +32,7 @@ a {
 
 .button {
     background-color: var(--secondary-color);
-    color: var(--light-color);
+    color: var(--bs-white);
     padding: 10px 20px;
     border: none;
     cursor: pointer;
