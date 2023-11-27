@@ -10,12 +10,13 @@
     <title>{% block title %} {% endblock %}</title>
 
     <!-- Hoja de estilos -->
-    <link rel="stylesheet" src="/static/css/styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
+    <div class="container mb-3">
     {% include "header.html" %}
-
+    </div>
 
     <!-- Segunda fila con slider -->
     <div class="container-fluid">

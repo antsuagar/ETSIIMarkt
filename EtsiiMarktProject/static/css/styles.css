@@ -15,8 +15,9 @@ body {
 }
 
 
-h1 {
+h2 {
     color: var(--primary-color);
+    font-weight: 700;
 }
 
 
@@ -30,10 +31,10 @@ a {
 }
 
 
-.button {
+.btn.btn-primary {
     background-color: var(--secondary-color);
-    color: var(--bs-white);
-    padding: 10px 20px;
+    color: var(--bs-black);
+    padding: 10px 10px;
     border: none;
     cursor: pointer;
 

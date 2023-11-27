@@ -10,25 +10,128 @@
     <title>{% block title %} {% endblock %}</title>
 
     <!-- Hoja de estilos -->
-    <link rel="stylesheet" src="/static/css/styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
 </head>
 <body>
-
-    {% include "header.html" %}
-
+    <div class="container mb-3">
+        {% include "header.html" %}
+    </div>
 
     <!-- Segunda fila con slider -->
-    <div class="container-fluid">
+    <div class="container mb-3">
         <div class="row">
             <div class="col">
                 <!-- Aquí va tu slider -->
+                <img src="/media/images/cabecera-portada.png" class="img-fluid" >
             </div>
         </div>
     </div>
 
-    <!-- Tercera fila con menú secundario y contenido -->
-    <div class="container">
-          
+    <!-- Tercera fila categorías -->
+    <div class="container mb-3">
+        <h2 class="text-center">CATEGORÍAS</h2>  
+        <div class="row">
+            <div class="col-2">
+                <div class="card">
+                    <img class="card-img-top" src="/media/images/categoria.png" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text">ELECTRODOMÉSTICOS</p>
+                    </div>
+                  </div>        
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <img class="card-img-top" src="/media/images/categoria.png" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text">ELECTRODOMÉSTICOS</p>
+                    </div>
+                  </div>        
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <img class="card-img-top" src="/media/images/categoria.png" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text">ELECTRODOMÉSTICOS</p>
+                    </div>
+                  </div>        
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <img class="card-img-top" src="/media/images/categoria.png" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text">ELECTRODOMÉSTICOS</p>
+                    </div>
+                  </div>        
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <img class="card-img-top" src="/media/images/categoria.png" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text">ELECTRODOMÉSTICOS</p>
+                    </div>
+                  </div>        
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <img class="card-img-top" src="/media/images/categoria.png" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text">ELECTRODOMÉSTICOS</p>
+                    </div>
+                  </div>        
+            </div>
+        </div>        
+    </div>
+
+    <!-- Segunda fila con slider -->
+    <div class="container mb-3">
+        
+        <div class="row">
+            <div class="col-12">
+                <!-- Aquí va tu slider -->
+                <img src="/media/images/fondo-gris.png" class="img-fluid" >
+            </div>
+        </div>
+    </div>
+
+    <!-- Tercera fila contenido -->
+    <div class="container mb-3">
+        <h2 class="text-center"><span class="text-dark">PRODUCTOS</span> DESTACADOS</h2> 
+        <div class="row">
+            <div class="card col-3 p-2 m-1">
+                <img class="card-img-top" src="/media/productos_imagenes/frigo_siemens.png" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Frigorífico Siemens</h5>
+                <p class="card-text">1.200 €</p>
+                <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+            </div>
+            <div class="card col-3 p-2 m-1">
+                <img class="card-img-top" src="/media/productos_imagenes/frigo_siemens.png" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Frigorífico Siemens</h5>
+                <p class="card-text">1.200 €</p>
+                <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+            </div>
+            <div class="card col-3 p-2 m-1">
+                <img class="card-img-top" src="/media/productos_imagenes/frigo_siemens.png" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Frigorífico Siemens</h5>
+                <p class="card-text">1.200 €</p>
+                <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+            </div>
+            <div class="card col-3 p-2 m-1">
+                <img class="card-img-top" src="/media/productos_imagenes/frigo_siemens.png" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Frigorífico Siemens</h5>
+                <p class="card-text">1.200 €</p>
+                <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+            </div>
+        </div>
             {% block content %} {% endblock %}            
         
     </div>
