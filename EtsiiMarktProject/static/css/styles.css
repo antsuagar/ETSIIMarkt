@@ -16,6 +16,7 @@ body {
 
 .wrapper{
     background-color: var(--bs-white);
+    min-height: 1000px;
 }
 
 h2 {
@@ -40,10 +41,19 @@ a {
     padding: 10px 10px;
     border: none;
     cursor: pointer;
-
+/*
     &:hover {
         background-color: darken(var(--secondary-color), 10%);
     }
+*/
+}
+
+.btn.btn-secondary{
+    background-color: var(--secondary-color);
+    color: var(--bs-black);
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
 }
 
 /** NAV ****/
@@ -51,4 +61,10 @@ a {
 nav.bg-body-tertiary {
     --bs-bg-opacity: 0 !important;
     background-color: var(--bs-white) !important;
+}
+
+/*** CATEGORIAS *****************/
+.categorias .bi{
+    color: var(--primary-color);
+    font-size: 4em;
 }
