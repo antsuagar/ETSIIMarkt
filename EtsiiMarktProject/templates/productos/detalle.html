@@ -3,11 +3,8 @@
 {% block title %}Catálogo de Productos<{% endblock %}
 
 {% block content %}
-
-<ul>
-    {% for producto in productos %}
-        <li>
-            <strong>{{ producto.nombre }}</strong><br>
+   
+        
             Categoría: {{ producto.categoria }}<br>
             Fabricante: {{ producto.fabricante }}<br>
             Precio: {{ producto.precio }}€<br>
@@ -19,15 +16,8 @@
                     <img src="{{producto.imagen.url}}">
                 {% endif %}
             </a>
-            <hr>
-        </li>
-    {% endfor %}
-</ul>
+           
+       
+
 
 {% endblock %}
-
-
-
-
-    
-
