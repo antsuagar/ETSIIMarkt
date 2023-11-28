@@ -1,35 +1,61 @@
-
-<div class="container-fluid">
-  <div class="row">
-    <nav class="d-none d-md-block bg-light sidebar">
-      <div class="position-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Servicios</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Productos
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Elect</a></li>
-              <li><a class="dropdown-item" href="#">Servicio 2</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Otros Servicios</a></li>
+<div class="row">
+    <div class="flex-shrink-0 p-3 bg-white">      
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#inicio" aria-expanded="false">
+            Inicio
+          </button>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+            Productos
+          </button>
+          <div class="collapse show" id="home-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark rounded">Overview</a></li>
+              <li><a href="#" class="link-dark rounded">Actualizaciones</a></li>
+              <li><a href="#" class="link-dark rounded">Reportes</a></li>
             </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contacto</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-  
-  </div>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+            Servicios
+          </button>
+          <div class="collapse" id="dashboard-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark rounded">Overview</a></li>
+              <li><a href="#" class="link-dark rounded">Semanal</a></li>
+              <li><a href="#" class="link-dark rounded">Mensual</a></li>
+              <li><a href="#" class="link-dark rounded">Anual</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#contacto" aria-expanded="false">
+            Contacto
+          </button>
+        </li>
+        <li class="border-top my-3"></li>
+        <li class="mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+            Área de Clientes
+          </button>
+          <div class="collapse" id="orders-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark rounded">Nuevo...</a></li>
+              <li><a href="#" class="link-dark rounded">Perfil</a></li>
+              <li><a href="#" class="link-dark rounded">Configuración</a></li>
+              <li><a href="#" class="link-dark rounded">Cerrar sesión</a></li>
+            </ul>
+          </div>
+        </li>
+        
+        
+        
+      </ul>
+    </div>    
 </div>
+
 
 

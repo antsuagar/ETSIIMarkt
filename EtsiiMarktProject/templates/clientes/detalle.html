@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Clientes{% endblock %}
+
+{% block content %}
+   
+        
+            Categoría: {{ producto.categoria }}<br>
+            Fabricante: {{ producto.fabricante }}<br>
+            Precio: {{ producto.precio }}€<br>
+            Descripción: {{ producto.descripcion }}<br>
+            Cantidad disponible: {{ producto.cantidad }}<br>
+            {% load static %}
+            <a href="#">
+                {% if producto.imagen %}
+                    <img src="{{producto.imagen.url}}">
+                {% endif %}
+            </a>
+           
+       
+
+
+{% endblock %}

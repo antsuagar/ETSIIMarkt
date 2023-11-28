@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Clientes{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for cliente in clientes %}   
+        <div class="col-3">
+            <div class="card p-2">
+                {% if producto.imagen %}
+                    <img class="card-img-top" src="{{producto.imagen.url}}" alt="{{ producto.nombre }}">
+                {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">{{ producto.precio }} €</p>
+                <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

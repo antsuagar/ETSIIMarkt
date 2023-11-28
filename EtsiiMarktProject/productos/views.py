@@ -5,7 +5,7 @@ from .models import Producto, Categoria
 #Catalogo de Productos
 def catalogo(request):
     productos = Producto.objects.all()
-    return render(request, 'catalogo.html', {'productos': productos})
+    return render(request, 'productos/catalogo.html', {'productos': productos})
 
 def catalogo(request):
     query = request.GET.get('q', '')

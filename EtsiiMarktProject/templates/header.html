@@ -1,79 +1,89 @@
-    <!-- Primera fila con logo y menú principal -->
+  <!-- Primera fila con logo y menú principal -->
    
-    <div class="container">
-        <div class="row bg-dark text-light p-3">
-            <div class="col-md-6">Redes Sociales</div>
-            <div class="col-md-6">Datos de contacto</div>
-        </div>
-        <div class="row ">            
-            <div class="col-10">
-                <!-- Aquí va tu menú principal -->
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid">
-                      <a class="navbar-brand" href="/"><img src="/media/images/logo.png" alt="Logo" class="img-fluid"></a>
-                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="home" href="/">Inicio</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="/servicios">Servicios</a>
-                          </li>                          
-                          <li class="nav-item">
-                            <a class="nav-link" href="/catalogo">Catálogo de productos</a>
-                          </li> 
-                          <li class="nav-item">
-                            <a class="nav-link" href="/contacto">Contacto</a>
-                          </li> 
-                          <li class="nav-item">
-                            <a class="nav-link" href="/clientes">Clientes</a>
-                          </li> 
-                        </ul>
-                        
-                      </div>
-                    </div>
-                  </nav>
-            </div>
-            <div class="col-2">                
-                <ul class="nav users">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/login"><img src="/media/images/icono-user.png" width="32px" height="32px" /></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/cesta"><img src="/media/images/cesta.png" width="32px" height="32px"/></a>
-                    </li>                    
-                  </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Todas las categorías
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
-                      <li><a class="dropdown-item" href="#">Salud y Belleza</a></li>
-                      <li><a class="dropdown-item" href="#">Televisión</a></li>
+  <div class="container">
+    <div class="row bg-dark text-light p-2">
+        <div class="col-md-6"><i class="bi bi-facebook"></i> <i class="bi bi-twitter"></i> <i class="bi bi-instagram"></i></div>
+        <div class="col-md-6">Datos de contacto</div>
+    </div>
+    <div class="row ">            
+        <div class="col-10">
+            <!-- Aquí va tu menú principal -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="/"><img src="/media/images/logo.png" alt="Logo" class="img-fluid"></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="home" href="/">Inicio</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/catalogo">Productos</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/servicios">Servicios</a>
+                      </li>               
+                      <li class="nav-item">
+                        <a class="nav-link" href="/contacto">Contacto</a>
+                      </li> 
+                      <li class="nav-item">
+                        <a class="nav-link" href="/clientes">Área Clientes</a>
+                      </li> 
                     </ul>
+                    
                   </div>
-            </div>
-            <div class="col">
-                <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
-                  <label for="filtro">Seleccionar filtro:</label>
-                    <select class="btn btn-secondary dropdown-toggle" name="filtro" id="filtro">
-                      <option value="nombre" {% if query_filtro == 'nombre' %}selected{% endif %}>Nombre</option>
-                      <option value="fabricante" {% if query_filtro == 'fabricante' %}selected{% endif %}>Fabricante</option>
-                      <option value="categoria" {% if query_filtro == 'categoria' %}selected{% endif %}>Categoría</option>
-                      <option value="precio" {% if query_filtro == 'precio' %}selected{% endif %}>Precio máximo</option>
-                    </select>
-                    <br>
-                  <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
-                  <button class="btn btn-outline-success" type="submit">BUSCAR</button>
-            </form>  
-            </div>
+                </div>
+              </nav>
+        </div>
+        <div class="col-2">                
+            <ul class="nav users">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/login"><img src="/media/images/icono-user.png" width="32px" height="32px" /></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cesta"><img src="/media/images/cesta.png" width="32px" height="32px"/></a>
+                </li>                    
+              </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Todas las categorías
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Audio y HiFi</a></li>
+                  <li><a class="dropdown-item" href="#">Climatización y Calefacción</a></li>
+                  <li><a class="dropdown-item" href="#">Consolas y Videojuegos</a></li>
+                  <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
+                  <li><a class="dropdown-item" href="#">Fotografía</a></li>
+                  <li><a class="dropdown-item" href="#">Informática</a></li>
+                  <li><a class="dropdown-item" href="#">Movilidad Urbana</a></li>
+                  <li><a class="dropdown-item" href="#">Pequeños Electrodomésticos</a></li>
+                  <li><a class="dropdown-item" href="#">Relojes Inteligentes</a></li>
+                  <li><a class="dropdown-item" href="#">Salud y Belleza</a></li>
+                  <li><a class="dropdown-item" href="#">Telefonía</a></li>
+                  <li><a class="dropdown-item" href="#">Televisión</a></li>
+                  <li><a class="dropdown-item" href="#">Otras Categorías</a></li>
+
+                </ul>
+              </div>
+        </div>
+        <div class="col-9">
+            <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
+              <label for="filtro"></label>
+                <select class="btn btn-secondary dropdown-toggle" name="filtro" id="filtro">
+                  <option value="nombre" {% if query_filtro == 'nombre' %}selected{% endif %}>Nombre</option>
+                  <option value="fabricante" {% if query_filtro == 'fabricante' %}selected{% endif %}>Fabricante</option>
+                  <option value="categoria" {% if query_filtro == 'categoria' %}selected{% endif %}>Categoría</option>
+                  <option value="precio" {% if query_filtro == 'precio' %}selected{% endif %}>Precio máximo</option>
+                </select>
+                <br>
+              <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
+              <button class="btn btn-outline-success" type="submit">BUSCAR</button>
+        </form>
         </div>
     </div>
