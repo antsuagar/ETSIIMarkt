@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 
-{% block title %}Catálogo de Productos<{% endblock %}
+{% block title %}Catálogo de Productos{% endblock %}
 
 {% block content %}
+
+<div class="col">
+    <form class="d-flex" role="search" method="get" action="{% url 'catalogo2' %}">
+      <label for="busqueda">Búsqueda avanzada:</label>
+      <select name="categoria" id="categoria">
+        {% for categoria in categorias %}
+            <option  value="{{ categoria.nombre }}" {% if categoria == '{{categoria.nombre}}' %}selected{% endif %}>{{ categoria.nombre }}</option>
+        {% endfor %}
+      </select>
+      <select name="fabricante" id="fabricante">
+        {% for fabricante in fabricantes %}
+            <option value="{{ fabricante.nombre }}" {% if fabricante == '{{fabricante.nombre}}' %}selected{% endif %}>{{ fabricante.nombre }}</option>
+        {% endfor %}
+      </select>
+      <input class="form-control me-2" type="number" name="precioMin" min="0" id="precioMin" placeholder="Precio Mínimo">
+      <input class="form-control me-2" type="number" name="precioMax" min="0" id="precioMax" placeholder="Precio Máximo">
+      <br>
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>  
+    
+</div>
 
 <ul>
     {% for producto in productos %}

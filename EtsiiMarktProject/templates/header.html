@@ -63,14 +63,8 @@
             </div>
             <div class="col">
                 <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
-                  <label for="filtro">Seleccionar filtro:</label>
-                    <select class="btn btn-secondary dropdown-toggle" name="filtro" id="filtro">
-                      <option value="nombre" {% if query_filtro == 'nombre' %}selected{% endif %}>Nombre</option>
-                      <option value="fabricante" {% if query_filtro == 'fabricante' %}selected{% endif %}>Fabricante</option>
-                      <option value="categoria" {% if query_filtro == 'categoria' %}selected{% endif %}>Categoría</option>
-                      <option value="precio" {% if query_filtro == 'precio' %}selected{% endif %}>Precio máximo</option>
-                    </select>
-                    <br>
+                  <br>
+                  <label for="search">Buscar en el catálogo:</label>
                   <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
                   <button class="btn btn-outline-success" type="submit">BUSCAR</button>
             </form>  
