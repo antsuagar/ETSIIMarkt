@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from clientes.views import RegistroClienteView
 from core.views import index
 from productos.views import catalogo
 from django.conf import settings
@@ -26,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('productos/', include('productos.urls')),
     path('catalogo/', catalogo, name='catalogo'),
+    path('registro/', RegistroClienteView.as_view(), name='registro_cliente'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
