@@ -1,4 +1,4 @@
-    <!-- Primera fila con logo y menú principal -->
+  <!-- Primera fila con logo y menú principal -->
    
     <div class="container">
         <div class="row bg-dark text-light p-3">
@@ -63,8 +63,9 @@
             </div>
             <div class="col">
                 <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
-                  <br>
                   <label for="search">Buscar en el catálogo:</label>
+                
+                    <br>
                   <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
                   <button class="btn btn-outline-success" type="submit">BUSCAR</button>
             </form>  

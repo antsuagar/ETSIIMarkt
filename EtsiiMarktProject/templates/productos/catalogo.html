@@ -25,25 +25,23 @@
     
 </div>
 
-<ul>
-    {% for producto in productos %}
-        <li>
-            <strong>{{ producto.nombre }}</strong><br>
-            Categoría: {{ producto.categoria }}<br>
-            Fabricante: {{ producto.fabricante }}<br>
-            Precio: {{ producto.precio }}€<br>
-            Descripción: {{ producto.descripcion }}<br>
-            Cantidad disponible: {{ producto.cantidad }}<br>
-            {% load static %}
-            <a href="#">
+<div class="row">
+    {% for producto in productos %}   
+        <div class="col-3">
+            <div class="card p-2">
                 {% if producto.imagen %}
-                    <img src="{{producto.imagen.url}}">
+                    <img class="card-img-top" src="{{producto.imagen.url}}" alt="{{ producto.nombre }}">
                 {% endif %}
-            </a>
-            <hr>
-        </li>
+                <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">{{ producto.precio }} €</p>
+                <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-</ul>
+</div>
+
 
 {% endblock %}
 

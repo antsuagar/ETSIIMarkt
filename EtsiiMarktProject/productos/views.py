@@ -10,7 +10,7 @@ def catalogo(request):
     fabricantes = Fabricante.objects.all()
 
     
-    return render(request, 'catalogo.html', {'productos': productos, 'categorias': categorias, 'fabricantes': fabricantes})
+    return render(request, 'productos/catalogo.html', {'productos': productos, 'categorias': categorias, 'fabricantes': fabricantes})
 
 def catalogo(request):
     query = request.GET.get('q', '')
@@ -23,7 +23,7 @@ def catalogo(request):
     productos = productos.filter(nombre__icontains=query)
 
 
-    return render(request, 'catalogo.html', {'productos': productos, 'categorias': categorias, 'fabricantes': fabricantes,   'query': query})
+    return render(request, 'productos/catalogo.html', {'productos': productos, 'categorias': categorias, 'fabricantes': fabricantes,   'query': query})
 
 def catalogo2(request):
     q_fabricante = request.GET.get('fabricante', '')
@@ -47,4 +47,4 @@ def catalogo2(request):
     productos = productos.filter( Q(fabricante__nombre__icontains=q_fabricante) & Q(categoria__nombre__icontains=q_categoria) & Q(precio__lte=q_precioMax) & Q(precio__gte=q_precioMin))
         
 
-    return render(request, 'catalogo.html', {'productos': productos, 'categorias': categorias,'fabricantes': fabricantes})
+    return render(request, 'productos/catalogo.html', {'productos': productos, 'categorias': categorias,'fabricantes': fabricantes})
