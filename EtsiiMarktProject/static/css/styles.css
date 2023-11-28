@@ -68,3 +68,18 @@ nav.bg-body-tertiary {
     color: var(--primary-color);
     font-size: 4em;
 }
+
+.categorias .card{
+    border-radius: 1rem !important;
+}
+/* Fondo de categorías */
+.categorias .bg-body-secondary {
+    background-color: var(--secondary-color);
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .categorias .card-text {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
