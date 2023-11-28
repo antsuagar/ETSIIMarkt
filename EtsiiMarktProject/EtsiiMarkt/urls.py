@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from clientes.views import RegistroClienteView
 from core.views import index
 from productos.views import catalogo, catalogo2
 from django.conf import settings
@@ -27,8 +28,8 @@ urlpatterns = [
     path('productos/', include('productos.urls')),
     path('catalogo/', catalogo, name='catalogo'),
     path('busqueda/', catalogo2, name='catalogo2'),
+    path('registro/', RegistroClienteView.as_view(), name='registro_cliente'),
 
-    
 ]
     
 
