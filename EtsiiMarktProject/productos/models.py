@@ -43,6 +43,8 @@ class Producto(models.Model):
     cantidad = models.IntegerField(default=1)
     imagen = models.ImageField(upload_to='productos_imagenes', blank=True, null=True)
 
+    search_fields= ['nombre', 'fabricante', 'categoria']
+    
     @property
     def producto_agotado(self):
         return self.cantidad == 0
