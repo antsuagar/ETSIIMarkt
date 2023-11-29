@@ -1,3 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Cliente
 
-# Create your views here.
+# Listado de clientes (index)
+def clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'clientes/listado.html', {'clientes': clientes})

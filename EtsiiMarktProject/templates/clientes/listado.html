@@ -4,21 +4,27 @@
 
 {% block content %}
 
+<h2>CLIENTES</h2>
+<br/>
 <div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Nombre y apellidos</th>
+                <th>Dirección</th>
+                <th>&nbsp;</th>
+            </tr>
     {% for cliente in clientes %}   
-        <div class="col-3">
-            <div class="card p-2">
-                {% if producto.imagen %}
-                    <img class="card-img-top" src="{{producto.imagen.url}}" alt="{{ producto.nombre }}">
-                {% endif %}
-                <div class="card-body">
-                <h5 class="card-title">{{ producto.nombre }}</h5>
-                <p class="card-text">{{ producto.precio }} €</p>
-                <a href="#" class="btn btn-primary">Ver producto</a>
-                </div>
-            </div>
-        </div>
+        <tr>
+            <td>{{ cliente.id }}</td>
+            <td><a href="#">{{ cliente.nombre }}</a></td>
+            <td>{{ cliente.direccion }}</td>
+            <td><i class="bi bi-person-plus-fill"></i> <i class="bi bi-pencil-square"></i> <i class="bi bi-person-x-fill"></i></td>
+        </tr>
     {% endfor %}
+        </table>
+    </div>
 </div>
 
 

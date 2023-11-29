@@ -14,7 +14,7 @@
                 <div class="card-body">
                 <h5 class="card-title">{{ producto.nombre }}</h5>
                 <p class="card-text">{{ producto.precio }} €</p>
-                <a href="#" class="btn btn-primary">Ver producto</a>
+                <a href="{% url 'detalle_producto' producto.id %}">Ver producto</a>
                 </div>
             </div>
         </div>

@@ -4,18 +4,31 @@
 
 {% block content %}
    
+<h2>{{ producto.nombre }}</h2>
         
-            Categoría: {{ producto.categoria }}<br>
-            Fabricante: {{ producto.fabricante }}<br>
-            Precio: {{ producto.precio }}€<br>
-            Descripción: {{ producto.descripcion }}<br>
-            Cantidad disponible: {{ producto.cantidad }}<br>
+    <div class="row producto">
+
+        <div class="col-5 bg-secondary-subtle">
             {% load static %}
             <a href="#">
                 {% if producto.imagen %}
-                    <img src="{{producto.imagen.url}}">
+                    <img src="{{producto.imagen.url}}" class="img-fluid">
                 {% endif %}
             </a>
+        </div>
+        <div class="col-7">
+            <ul class="list-group">
+                <li class="list-group-item"><h3>Categoría:</h3> {{ producto.categoria }}</li>
+                <li class="list-group-item"><h3>Fabricante:</h3> {{ producto.fabricante }}</li>
+                <li class="list-group-item"><h3>Precio:</h3> {{ producto.precio }}€</li>
+                <li class="list-group-item"><h3>Descripción:</h3> {{ producto.descripcion }}</li>
+                <li class="list-group-item"><h3>Cantidad disponible:</h3> {{ producto.cantidad }} unidades</li>
+              </ul>
+            
+        </div>
+        
+
+    </div>
            
        
 

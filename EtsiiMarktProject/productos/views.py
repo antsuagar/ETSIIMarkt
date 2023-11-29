@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Producto, Categoria
 
 #Catalogo de Productos
@@ -25,4 +25,8 @@ def catalogo(request):
         else: 
             productos = productos.filter(precio__lt=query)
 
-    return render(request, 'catalogo.html', {'productos': productos, 'query': query, 'query_filtro': query_filtro})
+    return render(request, 'productos/catalogo.html', {'productos': productos, 'query': query, 'query_filtro': query_filtro})
+
+def detalle_producto(request, producto_id):
+    producto = get_object_or_404(Producto, pk=producto_id)
+    return render(request, 'productos/detalle.html', {'producto': producto})

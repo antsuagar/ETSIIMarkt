@@ -24,6 +24,11 @@ h2 {
     font-weight: 700;
 }
 
+.producto h3 {
+    font-weight: 500;
+    font-size: 1.5rem !important;
+    color: var(--primary-color);
+}
 
 a {
     color: var(--dark-color);
@@ -82,4 +87,14 @@ nav.bg-body-tertiary {
     text-align: center;
     font-weight: 700;
     text-transform: uppercase;
+  }
+
+  .navbar ul li a{
+    color:  var(--bs-gray-800);
+    font-weight: 600;
+
+    &:hover {
+        color: var(--bs-gray-700);
+        text-decoration: underline;
+    }
   }
