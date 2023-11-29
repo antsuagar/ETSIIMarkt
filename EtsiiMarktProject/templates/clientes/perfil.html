@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Mi perfil{% endblock %}
+
+{% block content %}
+   
+        
+            Nombre de usuario: {{ user.username }}<br>
+            Nombre: {{ user.first_name }}<br>
+            Apellidos: {{ user.last_name }}<br>
+            Correo electrónico: {{ user.email }}<br>
+            Contraseña: {{ user.password1 }}<br>
+  
+
+
+{% endblock %}

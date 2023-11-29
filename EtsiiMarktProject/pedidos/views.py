@@ -5,8 +5,8 @@ from .models import Pedido, ProductoPedido
 # Create your views here.
 def carrito(request):
     if request.user.is_authenticated:
-        cliente=request.user.cliente
-        pedido, created = Pedido.objects.get_or_create(cliente=cliente, complete=False)
+        user=request.user
+        pedido, created = Pedido.objects.get_or_create(user=user, complete=False)
         items = pedido.productos_set.all()
     else:
         items = []

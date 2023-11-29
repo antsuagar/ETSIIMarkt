@@ -17,11 +17,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='cliente',
-            name='direccion',
-            field=models.CharField(blank=True, max_length=150, null=True),
-        ),
-        migrations.AlterField(
-            model_name='cliente',
             name='nombre',
             field=models.CharField(blank=True, max_length=150, null=True),
         ),

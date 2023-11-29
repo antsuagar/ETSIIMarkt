@@ -1,30 +1,22 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Cliente
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 import pdb
+from django.contrib.auth.forms import UserCreationForm
 
-class RegistroClienteForm(forms.ModelForm):
-    clave = forms.CharField(widget=forms.PasswordInput)
-    usuario = forms.CharField()
+class CustomUserCreationForm(UserCreationForm):
+	email = forms.EmailField(required=True)
 
-    class Meta:
-        model = Cliente
-        fields = ['usuario','clave','email','nombre','apellidos','direccion','telefono']
-    
-    def clean_clave(self):
-        clave = self.cleaned_data.get('clave')
-        validate_password(clave, self.instance)  # Realiza las validaciones de contraseña de Django
-        return clave
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+	class Meta:
+		model = User
+		fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+	def clean_email(self):
+		email = self.cleaned_data['email']
 
-        self.fields['usuario'].help_text = 'Obligatorio. Debe ser único'
-        self.fields['clave'].help_text = 'Obligatorio'
-        self.fields['email'].help_text = 'Obligatorio. Debe ser único, y no vale el de ejemplo'
-
+		if User.objects.filter(email=email).exists():
+			raise forms.ValidationError('Este correo electrónico ya está registrado')
+		return email
 
 class UserOrEmailAuthenticationForm(forms.Form):
     username = forms.CharField(label='Nombre de usuario o correo electrónico')
@@ -57,7 +49,7 @@ class UserOrEmailAuthenticationForm(forms.Form):
 
 def obtener_username_por_correo_cliente(correo_cliente):
     try:
-        cliente = Cliente.objects.get(email=correo_cliente)
-        return cliente.user.username if cliente.user else None
-    except Cliente.DoesNotExist:
+        cliente = User.objects.get(email=correo_cliente)
+        return cliente.username if cliente else None
+    except User.DoesNotExist:
         return None

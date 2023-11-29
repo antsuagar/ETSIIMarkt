@@ -2,12 +2,12 @@ from django.db import models
 
 from productos.models import Producto
 
-from clientes.models import Cliente
+from django.contrib.auth.models import User
 
 # Create your models here.
     
 class Pedido(models.Model):
-    cliente=models.ForeignKey(Cliente,on_delete=models.SET_NULL, null=True, blank=True)
+    user=models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
     fecha_pedido=models.DateTimeField(auto_now_add=True)
     completado=models.BooleanField(default=False)
     id_transaccion=models.CharField(max_length=100, null=True)
@@ -39,7 +39,7 @@ class ProductoPedido(models.Model):
         return total
 
 class DireccionEnvio(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     pedido = models.ForeignKey(Pedido, on_delete=models.SET_NULL, null=True)
     direccion = models.CharField(max_length=200, null=False)
     ciudad = models.CharField(max_length=200, null=False)
