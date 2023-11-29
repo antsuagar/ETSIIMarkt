@@ -29,10 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('productos/', include('productos.urls')),
     path('catalogo/', catalogo, name='catalogo'),
-    path('busqueda/', catalogo2, name='catalogo2'),
-    path('registro/', RegistroClienteView.as_view(), name='registro_cliente'),
-    path('login/', IniciarSesionView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
 ]
     
 
