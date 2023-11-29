@@ -16,6 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from clientes.views import RegistroClienteView
+from clientes.views import IniciarSesionView
+from django.contrib.auth.views import LogoutView
 from core.views import index
 from productos.views import catalogo, catalogo2
 from django.conf import settings
@@ -26,9 +29,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('productos/', include('productos.urls')),
     path('catalogo/', catalogo, name='catalogo'),
-    path('busqueda/', catalogo2, name='catalogo2'),
-
-    
 ]
     
 
