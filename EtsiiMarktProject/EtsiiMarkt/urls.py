@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 #from clientes.views import RegistroClienteView
-from clientes.views import IniciarSesionView, perfil, register
+from clientes.views import IniciarSesionView, modificar_datos_usuario, perfil, register
 from django.contrib.auth.views import LogoutView
 from core.views import index
 from productos.views import catalogo, catalogo2
@@ -29,10 +29,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('productos/', include('productos.urls')),
     path('catalogo/', catalogo, name='catalogo'),
+    path('busqueda/', catalogo2, name='catalogo2'),
     path('login/', IniciarSesionView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('registro/', register, name='registro_usuario'),
     path('perfil/', perfil, name='perfil_usuario'),
+    path('modificar_perfil/', modificar_datos_usuario, name='modificar_perfil'),
 ]
     
 

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 import pdb
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
@@ -53,3 +53,8 @@ def obtener_username_por_correo_cliente(correo_cliente):
         return cliente.username if cliente else None
     except User.DoesNotExist:
         return None
+    
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = User  
+        fields = ['first_name', 'last_name', 'email']  
