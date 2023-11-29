@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from clientes.views import RegistroClienteView
+from clientes.views import IniciarSesionView
+from django.contrib.auth.views import LogoutView
 from core.views import index
 from productos.views import catalogo
 from django.conf import settings
@@ -28,6 +30,8 @@ urlpatterns = [
     path('productos/', include('productos.urls')),
     path('catalogo/', catalogo, name='catalogo'),
     path('registro/', RegistroClienteView.as_view(), name='registro_cliente'),
+    path('login/', IniciarSesionView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
