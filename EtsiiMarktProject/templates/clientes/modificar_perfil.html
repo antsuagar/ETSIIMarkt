@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Modificar Datos</title>
-</head>
-<body>
-    <h2>Modificar Datos</h2>
+{% extends "base.html" %}
+
+{% block title %}Modificar perfil{% endblock %}
+
+{% block content %}
+   
+        <h2>MODIFICAR PERFIL: {{ user.first_name }} {{ user.last_name }}</h2>
+        <div class="row perfil pt-4 pb-4" style="border: 1px solid var(--bs-gray-300);">
+
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar cambios</button>
+        <button class="btn btn-secondary" type="submit">Guardar cambios</button>
     </form>
-</body>
-</html>
+    {% endblock %}
