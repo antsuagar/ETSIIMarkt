@@ -10,6 +10,11 @@
             Precio: {{ producto.precio }}€<br>
             Descripción: {{ producto.descripcion }}<br>
             Cantidad disponible: {{ producto.cantidad }}<br>
+            <form class="d-flex" role="cesta" method="get" action="{% url 'detalle' producto.id %}">
+                <input class="form-control me-2" type="number" name="cantidad" min="1" id="cantidad" placeholder="Cantidad">
+                <br>
+                <button class="btn btn-outline-success" type="submit">Añadir al carrito</button>
+                </form>
             {% load static %}
             <a href="#">
                 {% if producto.imagen %}

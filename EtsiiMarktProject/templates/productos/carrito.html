@@ -26,7 +26,7 @@
                         <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
                     </form>
                 </td>
-                <td>${{ item.total }}</td>
+                <td>${{ item.get_total }}</td>
                 <td>
                     <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
@@ -36,7 +36,7 @@
     </table>
 
     <div class="mt-3">
-        <h4>Total a pagar: ${{ total }}</h4>
+        <h4>Total a pagar: ${{ pedido.get_total_carrito }}</h4>
         <a href="#" class="btn btn-success">Realizar Pago</a>
     </div>
 </div>
