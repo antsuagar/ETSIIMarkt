@@ -9,10 +9,6 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
-def index(request):    
-    user = request.user
-    return render(request, '/home.html', {'user': user})
-
 def register(request):
     data = {
         'form': CustomUserCreationForm()

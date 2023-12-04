@@ -24,9 +24,12 @@ h2 {
     font-weight: 700;
 }
 
+h3{
+    color: var(--primary-color) !important;
+}
 
 a {
-    color: var(--dark-color);
+    color: var(--base0C) !important;
     text-decoration: none;
 
     &:hover {
@@ -83,3 +86,30 @@ nav.bg-body-tertiary {
     font-weight: 700;
     text-transform: uppercase;
   }
+
+
+  /********** BUSQUEDA ***************/
+
+  .busqueda label{
+    font-weight: 700;
+  }
+
+  .busqueda ::placeholder{
+    font-style: italic;
+    color: var(--bs-gray-400);
+  }
+
+  #buscar{
+    width: 100%;
+  }
+
+  /*********** LOGIN *************/
+
+  a.nav-link.active {
+    color: inherit;
+}
+  .nav.users .bi{
+    color: var(--secondary-color) !important;
+    font-size: 30px !important;
+  }
+  

@@ -4,12 +4,17 @@
 
 {% block content %}
    
-        
-            Nombre de usuario: {{ user.username }}<br>
-            Nombre: {{ user.first_name }}<br>
-            Apellidos: {{ user.last_name }}<br>
-            Correo electrónico: {{ user.email }}<br>
-            Contraseña: {{ user.password1 }}<br>
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <div class="row perfil ">
+
+        <ul class="list-group mb-3">
+            <li class="list-group-item"><h3>Nombre de usuario:</h3> {{ user.username }}</li>
+            <li class="list-group-item"><h3>Nombre:</h3> {{ user.first_name }}</li>
+            <li class="list-group-item"><h3>Precio:</h3> {{ user.last_name }}</li>
+            <li class="list-group-item"><h3>Correo electrónico:</h3> {{ user.email }}</li>
+            <li class="list-group-item"><h3>Contraseña:</h3>{{ user.password1 }}</li>
+          </ul>
+     
 
             <a href="{% url 'modificar_perfil' %}" class="btn btn-primary">Modificar Perfil</a>
   

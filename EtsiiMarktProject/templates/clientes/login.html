@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-</head>
-<body>
-    <h2>Iniciar Sesión</h2>
+{% extends "base.html" %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<h2>INICIAR SESIÓN</h2>
+<div class="row login pt-4 pb-4" style="border: 1px solid var(--bs-gray-300);">
+    
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit">Iniciar Sesión</button>
+        <p class="fw-bold">Si no estás registrado todavía puedes hacerlo desde aquí: <a href="/registro">Nuevo registro.</a></p>
+        <button type="submit" class="btn btn-secondary">Iniciar Sesión</button>
     </form>
-</body>
-</html>
+  
+
+</div>
+    {% endblock %}

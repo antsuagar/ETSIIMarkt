@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Cliente</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-  <h2>Registro de Cliente</h2>
+{% block title %}Registro Cliente{% endblock %}
+
+{% block content %}
+
+<h2>REGISTRO DE CLIENTES</h2>
+<div class="row login pt-4 pb-4" style="border: 1px solid var(--bs-gray-300);">
+
 
   <form method="post" action="{% url 'registro_usuario' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Registrar</button>
+    <button class="btn btn-secondary" type="submit">Registrar</button>
   </form>
 
-</body>
-</html>
+</div>
+{% endblock %}

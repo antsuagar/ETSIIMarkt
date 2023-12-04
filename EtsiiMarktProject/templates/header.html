@@ -1,12 +1,12 @@
   <!-- Primera fila con logo y menú principal -->
    
     <div class="container">
-        <div class="row bg-dark text-light p-3">
-            <div class="col-md-6">Redes Sociales</div>
-            <div class="col-md-6">Datos de contacto</div>
-        </div>
+      <div class="row bg-dark text-light p-2">
+        <div class="col-6"><i class="bi bi-facebook"></i> <i class="bi bi-twitter"></i> <i class="bi bi-instagram"></i></div>   
+        <div class="col-6" style="text-align: right">Contacto: <i class="bi bi-telephone"></i> 900 123 456 &nbsp;&nbsp;&nbsp;<i class="bi bi-envelope"></i> contacto@etsiimark.com</div>
+    </div>
         <div class="row ">            
-            <div class="col-10">
+            <div class="col-8">
                 <!-- Aquí va tu menú principal -->
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid">
@@ -29,7 +29,7 @@
                             <a class="nav-link" href="/contacto">Contacto</a>
                           </li> 
                           <li class="nav-item">
-                            <a class="nav-link" href="/clientes">Clientes</a>
+                            <a class="nav-link" href="/perfil">Clientes</a>
                           </li> 
                         </ul>
                         
@@ -37,23 +37,25 @@
                     </div>
                   </nav>
             </div>
-            <div class="col-2">                
-                <ul class="nav users">
+            <div class="col-4">                
+                <ul class="nav users" style="float: right">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/productos/carrito"><i class="bi bi-basket"></i></a>
+                  </li> 
                     {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/logout"><i class="bi bi-box-arrow-left"></i></a>
+                    </li>
                       <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/perfil"><img src="/media/images/icono-user.png" width="32px" height="32px" /> {{ user.username }}</a>
+                        <a class="nav-link active" aria-current="page" href="/perfil"><i class="bi bi-person-circle"></i> {{ user.username }}</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/logout"><img src="/media/images/logout.png" width="32px" height="32px" />Log out</a>
-                      </li>
+                      
                     {% else %}
                       <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login"><img src="/media/images/icono-user.png" width="32px" height="32px" /></a>
+                        <a class="nav-link active" aria-current="page" href="/login"><i class="bi bi-person-circle"></i></a>
                       </li>
                     {% endif %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="/productos/carrito"><img src="/media/images/cesta.png" width="32px" height="32px"/></a>
-                    </li>                    
+                                      
                   </ul>
             </div>
         </div>
@@ -65,7 +67,10 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
-                      <li><a class="dropdown-item" href="#">Salud y Belleza</a></li>
+                      <li><a class="dropdown-item" href="#">Fotografía</a></li>
+                      <li><a class="dropdown-item" href="#">Informática</a></li>
+                      <li><a class="dropdown-item" href="#">Juegos y Consolas</a></li>
+                      <li><a class="dropdown-item" href="#">Telefonía</a></li>
                       <li><a class="dropdown-item" href="#">Televisión</a></li>
                     </ul>
                   </div>
@@ -76,7 +81,7 @@
                 
                     <br>
                   <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
-                  <button class="btn btn-outline-success" type="submit">BUSCAR</button>
+                  <button class="btn btn-secondary" type="submit">BUSCAR</button>
             </form>  
             </div>
         </div>
