@@ -1,5 +1,6 @@
 import uuid
 from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 
 from pedidos.models import Pedido, ProductoPedido
@@ -56,36 +57,39 @@ def catalogo2(request):
 
 def detalle(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
-    cantidadPedida = request.GET.get('cantidad','0')
+    cantidadPedida = request.GET.get('cantidad','')
     
 
-    if cantidadPedida =='0':
+    if cantidadPedida =='':
         return render(request, 'productos/detalle.html', {'producto': producto})
 
     elif request.user.is_authenticated:
         user=request.user
         nuevo_pedido, created = Pedido.objects.get_or_create(user=user)
-        incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=cantidadPedida)
-        incluir_producto.save()
+        incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=cesta,producto=producto)
+        incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
         nuevo_pedido.save()
+        incluir_producto.save()     
 
-
-    else:  # Lo que hace si no esta autenticado
+    else:  
         if 'anonimo_id' not in request.session:
             request.session['anonimo_id'] = str(uuid.uuid4())
             anonimo_id = request.session['anonimo_id']
             nuevo_pedido = Pedido(user=None,id_transaccion=anonimo_id)
             nuevo_pedido.save()
-            incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=cantidadPedida)
+            incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=int(cantidadPedida))
             incluir_producto.save()
                 
                
         else:
             anonimo_id = request.session['anonimo_id']
             cesta = get_object_or_404(Pedido, id_transaccion=anonimo_id)
-            incluir_producto= ProductoPedido(pedido=cesta, producto=producto, cantidad=cantidadPedida)
-            incluir_producto.save()
+            incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=cesta,producto=producto)
+            incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
+            incluir_producto.save() 
+           
 
+    messages.success(request, 'El producto se ha añadido al carrito de compra')
     return render(request, 'productos/detalle.html', {'producto': producto})
 
     

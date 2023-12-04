@@ -10,7 +10,7 @@ def carrito(request):
     if request.user.is_authenticated:
         user=request.user
         pedido, created = Pedido.objects.get_or_create(user=user)
-        items = pedido.get_productos_carrito() 
+        items = pedido.get_lista_de_productos_carrito() 
     else:
         if 'anonimo_id' not in request.session:
             request.session['anonimo_id'] = str(uuid.uuid4())
@@ -24,7 +24,7 @@ def carrito(request):
         else:
             anonimo_id = request.session['anonimo_id']
             pedido = get_object_or_404(Pedido, id_transaccion=anonimo_id)
-            items = pedido.get_productos_carrito()
+            items = pedido.get_lista_de_productos_carrito()
             
           
         
@@ -75,7 +75,7 @@ def eliminar(request, producto_id):
     producto_pedido, createdP= ProductoPedido.objects.get_or_create(pedido=pedido,producto=q_producto)
     producto_pedido.delete()   
 
-    items = pedido.get_productos_carrito()
+    items = pedido.get_lista_de_productos_carrito()
 
     context={'items': items, 'pedido': pedido}
     return render(request, 'productos/carrito.html', context)

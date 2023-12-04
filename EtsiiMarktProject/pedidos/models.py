@@ -24,7 +24,7 @@ class Pedido(models.Model):
         total=sum([p.cantidad for p in productopedidos])
         return total
     
-    def get_productos_carrito(self):
+    def get_lista_de_productos_carrito(self):
         productos = [producto_pedido for producto_pedido in self.productopedido_set.all()]
         return productos
 
