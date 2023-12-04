@@ -33,8 +33,8 @@ def catalogo(request):
 def catalogo2(request):
     q_fabricante = request.GET.get('fabricante', '')
     q_categoria = request.GET.get('categoria', '')
-    q_precioMin = request.GET.get('precioMin', '0')
-    q_precioMax = request.GET.get('precioMax', '1000000000000')
+    q_precioMin = request.GET.get('precioMin', '')
+    q_precioMax = request.GET.get('precioMax', '')
 
     productos = Producto.objects.all()
     categorias = Categoria.objects.all()
@@ -44,16 +44,15 @@ def catalogo2(request):
         q_fabricante=''
     if q_categoria=='Electrodomestico':
         q_categoria=''
+    if q_precioMin=='':
+        q_precioMin=0
+    if q_precioMax=='':
+        q_precioMax=1000000000000
 
     productos = productos.filter( Q(fabricante__nombre__icontains=q_fabricante) & Q(categoria__nombre__icontains=q_categoria) & Q(precio__lte=q_precioMax) & Q(precio__gte=q_precioMin))
         
 
     return render(request, 'productos/catalogo.html', {'productos': productos, 'categorias': categorias,'fabricantes': fabricantes})
-
-#Detalle de producto
-#def detalle(request, producto_id):
- #   producto = get_object_or_404(Producto, pk=producto_id)
-  #  return render(request, 'productos/detalle.html', {'producto': producto})
 
 def detalle(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
@@ -65,7 +64,7 @@ def detalle(request, producto_id):
 
     elif request.user.is_authenticated:
         user=request.user
-        nuevo_pedido = Pedido.objects.get_or_create(user=user)
+        nuevo_pedido, created = Pedido.objects.get_or_create(user=user)
         incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=cantidadPedida)
         incluir_producto.save()
         nuevo_pedido.save()

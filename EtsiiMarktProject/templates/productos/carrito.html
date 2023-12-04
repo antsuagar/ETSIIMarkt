@@ -20,15 +20,15 @@
                 <td>{{ item.producto.nombre }}</td>
                 <td>${{ item.producto.precio }}</td>
                 <td>
-                    <form action="#" method="post" class="form-inline">
+                    <form action="{% url 'actualizar' item.producto.id %}" method="post" class="form-inline">
                         {% csrf_token %}
-                        <input type="number" name="cantidad" value="{{ item.cantidad }}" class="form-control mr-2">
+                        <input type="number" name="cantidad" value="{{ item.cantidad }}" min='1' class="form-control mr-2">
                         <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
                     </form>
                 </td>
                 <td>${{ item.get_total }}</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
+                    <a href="{% url 'eliminar' item.producto.id %}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}
