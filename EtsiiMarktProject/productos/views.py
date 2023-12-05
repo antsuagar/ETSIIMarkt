@@ -66,7 +66,7 @@ def detalle(request, producto_id):
     elif request.user.is_authenticated:
         user=request.user
         nuevo_pedido, created = Pedido.objects.get_or_create(user=user)
-        incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=cesta,producto=producto)
+        incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=nuevo_pedido,producto=producto)
         incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
         nuevo_pedido.save()
         incluir_producto.save()     
