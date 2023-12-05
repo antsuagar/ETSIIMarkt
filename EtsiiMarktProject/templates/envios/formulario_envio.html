@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,41 +13,30 @@
         {% csrf_token %}
         
         <!-- Campos del formulario -->
-        <input type="hidden" name="id_transaccion" value="{{ id_transaccion }}">
-
-        <input type="hidden" name="completado" value="true">
-        
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
+        <label for="idT">ID Transacción:</label>
+        <input type="text" name="id_transaccion" required>
+        <br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
+        <input type="email" name="email" required>
+        <br>
         <label for="direccion">Dirección de Envío:</label>
-        <input type="text" id="direccion" name="direccion" required>
-
+        <input type="text" name="direccion" required>
+        <br>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" name="ciudad" required>
+        <br>
+        <label for="postal">Código postal:</label>
+        <input type="text" name="postal" required>
+        <br>
         <!-- Otros campos del formulario -->
 
-        <button type="submit">Enviar Pedido</button>
+        <button type="submit">Completar Pedido</button>
     </form>
 
     <!-- Puedes agregar más contenido HTML según sea necesario -->
 
 <!-- Agrega este script después del formulario -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var formulario = document.querySelector('form');
-
-        formulario.addEventListener('submit', function() {
-            // Puedes agregar aquí cualquier lógica de validación antes de enviar el formulario
-
-            // Después de enviar el formulario, redirigir a home.html
-            window.location.href = '{% url "home" %}';
-        });
-    });
-</script>
-
-
 
 </body>
-</html>
+
+{% endblock %}

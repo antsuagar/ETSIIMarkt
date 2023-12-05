@@ -1,8 +1,9 @@
 import uuid
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .models import Pedido, ProductoPedido
-from productos.models import Fabricante, Producto, Categoria
+from .models import DireccionEnvio, Pedido, ProductoPedido
+from django.contrib import messages
+from productos.models import Producto
 from datetime import datetime 
 
 # Create your views here.
@@ -16,7 +17,7 @@ def carrito(request):
         if 'anonimo_id' not in request.session:
             request.session['anonimo_id'] = str(uuid.uuid4())
             anonimo_id = request.session['anonimo_id']
-            nuevo_pedido = Pedido(user=None,id_transaccion=anonimo_id)
+            nuevo_pedido, created = Pedido.objects.get_or_create(user=None,id_transaccion=anonimo_id)
             nuevo_pedido.save()
             items = []
             pedido = {'get_total_carrito':0, 'get_productos_carrito':0}
@@ -73,31 +74,47 @@ def eliminar(request, producto_id):
     return render(request, 'productos/carrito.html', context)
 
 
-def formulario_envio(request, id_transaccion):
-    # Lógica para manejar el formulario de envío
-    return render(request, 'formulario_envio.html', {'id_transaccion': id_transaccion})
+def formulario_envio(request):
+
+    return render(request, 'envios/formulario_envio.html')
 
 def procesar_pedido(request):
-    if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        email = request.POST.get('email')
-        direccion = request.POST.get('direccion')
-        transaccion_id = request.POST.get('transaccion_id')
-        completado = request.POST.get('completado')
+    
+    email = request.POST.get('email')
+    direccion = request.POST.get('direccion')
+    ciudad = request.POST.get('ciudad')
+    codigo_postal = request.POST.get('postal')
+
+
+    transaccion_id = request.POST.get('transaccion_id')
 
         # Obtiene la fecha y hora actuales
-        fecha_pedido = datetime.now()
+    fecha_pedido = datetime.now()
 
-        # Crea un nuevo objeto Pedido con los datos del formulario y la fecha actual
-        pedido = Pedido.objects.create(
-            
-            fecha_pedido=fecha_pedido,
-            completado=completado,
-            transaccion_id=transaccion_id,
-           
-            # Otros campos del pedido
-        )
+    if request.user.is_authenticated:
+        user=request.user
+        pedido = get_object_or_404(Pedido, user=user)
+      
+    else:
+        anonimo_id = request.session['anonimo_id']
+        pedido = get_object_or_404(Pedido, id_transaccion=anonimo_id)
+        user = None
+        del request.session['anonimo_id']
 
-        # Lógica adicional, como enviar correos electrónicos, actualizar inventarios, etc.
+  
+    direccion_pedido, created = DireccionEnvio.objects.get_or_create(user=user, pedido=pedido, direccion=direccion, ciudad=ciudad, codigo_postal=codigo_postal)
+    pedido.fecha_pedido = fecha_pedido
+    pedido.completado = True
+    pedido.id_transaccion = transaccion_id
 
-        return redirect('home')
+    direccion_pedido.save()
+    pedido.save()
+
+    id_pedido = pedido.id 
+    
+    print(id_pedido)
+    messages.success(request, 'El pedido se ha completado correctamente, se ha enviado un correo con el seguimiento y puede acceder a el con el siguiente enlace: .../seguimiento/producto_id')
+
+    # Mandar email aqui
+
+    return render(request, 'home.html')
