@@ -37,7 +37,10 @@
 
     <div class="mt-3">
         <h4>Total a pagar: ${{ pedido.get_total_carrito }}</h4>
-        <a href="#" class="btn btn-success">Realizar Pago</a>
+        <form method="post" action="{% url 'formulario_envio' %}">
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">Finalizar Compra</button>
+        </form>
     </div>
 </div>
 {% endblock %}
