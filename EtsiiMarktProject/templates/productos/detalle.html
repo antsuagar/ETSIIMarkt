@@ -7,7 +7,20 @@
         
 <div class="row producto">
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
     <div class="col-5 ">
+            <form class="d-flex" role="cesta" method="get" action="{% url 'detalle' producto.id %}">
+                <input class="form-control me-2" type="number" name="cantidad" min="1" id="cantidad" placeholder="Cantidad">
+                <br>
+                <button class="btn btn-outline-success" type="submit">Añadir al carrito</button>
+                </form>
         {% load static %}
         <a href="#">
             {% if producto.imagen %}
