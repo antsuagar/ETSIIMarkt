@@ -57,7 +57,7 @@ def modificar_datos_usuario(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('/perfil')  # Reemplaza 'ver_perfil' con la URL o nombre de la vista para ver el perfil del usuario
+            return redirect('/perfil')  
     else:
         form = CustomUserChangeForm(instance=request.user)
     
