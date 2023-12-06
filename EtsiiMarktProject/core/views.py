@@ -6,4 +6,6 @@ def index(request):
     user = request.user
     productos = Producto.objects.all()
     return render(request, 'home.html', {'user': user, 'productos': productos})
-    
+
+def nosotros(request):  
+    return render(request, 'empresa/nosotros.html')

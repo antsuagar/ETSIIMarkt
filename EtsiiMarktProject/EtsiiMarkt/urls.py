@@ -19,7 +19,7 @@ from django.urls import path, include
 #from clientes.views import RegistroClienteView
 from clientes.views import IniciarSesionView, modificar_datos_usuario, perfil, register
 from django.contrib.auth.views import LogoutView
-from core.views import index
+from core.views import index, nosotros
 from productos.views import catalogo, catalogo2
 from pedidos.views import procesar_pago, exito, error
 from django.conf import settings
@@ -39,6 +39,7 @@ urlpatterns = [
     path('procesar_pago/', procesar_pago, name='procesar_pago'),
     path('exito/<str:cantidad>/', exito, name='exito'),
     path('error/<str:error>/', error, name='error'),
+    path('nosotros', nosotros, name='nosotros'),
 ]
     
 
