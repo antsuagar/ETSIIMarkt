@@ -10,6 +10,7 @@ class EstadoProducto(Enum):
     EN_PREPARACION = 'En preparación'
     ENVIADO = 'Enviado'
     ENTREGADO = 'Entregado'
+
     
 class Pedido(models.Model):
     user=models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
@@ -30,6 +31,14 @@ class Pedido(models.Model):
         productopedidos=self.productopedido_set.all()
         total=sum([p.cantidad for p in productopedidos])
         return total
+    
+    def get_estado(self):
+        if str(EstadoProducto.EN_PREPARACION)==self.estado:
+            return 'En preparación'
+        if str(EstadoProducto.ENTREGADO)==self.estado:
+            return 'Entregado'
+        if str(EstadoProducto.ENVIADO)==self.estado:
+            return 'Enviado'
     
     def get_lista_de_productos_carrito(self):
         productos = [producto_pedido for producto_pedido in self.productopedido_set.all()]

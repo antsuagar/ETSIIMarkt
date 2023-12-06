@@ -15,7 +15,7 @@ def carrito(request):
 
     if request.user.is_authenticated:
         user=request.user
-        pedido, created = Pedido.objects.get_or_create(user=user)
+        pedido, created = Pedido.objects.get_or_create(user=user,completado=False)
         items = pedido.get_lista_de_productos_carrito() 
     else:
         if 'anonimo_id' not in request.session:
@@ -40,17 +40,21 @@ def actualizar(request, producto_id):
 
     if request.user.is_authenticated:
         user=request.user
-        pedido, created = Pedido.objects.get_or_create(user=user)
+        pedido, created = Pedido.objects.get_or_create(user=user,completado=False)
       
     else:
         anonimo_id = request.session['anonimo_id']
         pedido = get_object_or_404(Pedido, id_transaccion=anonimo_id)
 
     producto_pedido, createdP= ProductoPedido.objects.get_or_create(pedido=pedido,producto=q_producto)
-    producto_pedido.cantidad = q_cantidad
-    producto_pedido.save()   
+    q_producto.cantidad = q_producto.cantidad+(producto_pedido.cantidad-int(q_cantidad))
+    producto_pedido.cantidad =q_cantidad
+    producto_pedido.save() 
+    q_producto.save()  
 
-    items = pedido.get_productos_carrito()
+    
+
+    items = pedido.get_lista_de_productos_carrito()
 
     context={'items': items, 'pedido': pedido}
     return render(request, 'productos/carrito.html', context)
@@ -61,7 +65,7 @@ def eliminar(request, producto_id):
 
     if request.user.is_authenticated:
         user=request.user
-        pedido, created = Pedido.objects.get_or_create(user=user)
+        pedido, created = Pedido.objects.get_or_create(user=user,completado=False)
       
     else:
         anonimo_id = request.session['anonimo_id']
@@ -70,7 +74,9 @@ def eliminar(request, producto_id):
         
             
     producto_pedido, createdP= ProductoPedido.objects.get_or_create(pedido=pedido,producto=q_producto)
-    producto_pedido.delete()   
+    q_producto.cantidad = q_producto.cantidad+producto_pedido.cantidad
+    producto_pedido.delete()  
+    q_producto.save()  
 
     items = pedido.get_lista_de_productos_carrito()
 
@@ -97,7 +103,7 @@ def procesar_pedido(request):
 
     if request.user.is_authenticated:
         user=request.user
-        pedido = get_object_or_404(Pedido, user=user)
+        pedido = get_object_or_404(Pedido, user=user,completado=False)
       
     else:
         anonimo_id = request.session['anonimo_id']
@@ -114,7 +120,7 @@ def procesar_pedido(request):
     try:
         send_mail(
         "Su pedido en Etsii Markt esta en marcha",
-        "Gracias por comprar con nosotros, le informamos que su pedido de {0} con un total de {1} esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido con el siguiente enlace /seguimiento/{5}".format(factura, total, direccion, ciudad, codigo_postal, id_pedido),
+        "Gracias por comprar con nosotros, le informamos que su pedido de {0} con un total de {1} esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido en nuestra página web introduciendo el número de su pedido: {5} en el apartado de pedidos realizados o estando registrado en nuestra web".format(factura, total, direccion, ciudad, codigo_postal, id_pedido),
         "etsiiMarktProyect@outlook.es",
         emails,
         fail_silently=False,
@@ -139,15 +145,18 @@ def procesar_pedido(request):
     return render(request, 'home.html')
 
 def pedidos_usuario(request):
-
+    
     if request.user.is_authenticated:
         user=request.user
+        pedidos = Pedido.objects.all().filter(Q(user=user) & Q(completado=True))
       
     else:
-        messages.error('Ups, registrese para ver el seguimiento de sus pedidos')
-        return render(request, 'envios/seguimiento.html')
+        id_pedido= request.GET.get('idPedido','')
+        if id_pedido=='':
+            messages.success(request, 'Para poder hacer seguimiento de sus pedidos, registrese o indique número de su pedido')
+            return render(request, 'envios/seguimiento.html')
+        pedido = get_object_or_404(Pedido, id=id_pedido)
+        pedidos =[pedido]
     
-    pedidos = Pedido.objects.all().filter(Q(user=user) & Q(completado=True))
-
     return render(request, 'envios/seguimiento.html', {'pedidos': pedidos})
 

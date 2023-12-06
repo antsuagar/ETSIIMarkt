@@ -64,7 +64,7 @@ def detalle(request, producto_id):
 
     elif request.user.is_authenticated:
         user=request.user
-        nuevo_pedido, created = Pedido.objects.get_or_create(user=user)
+        nuevo_pedido, created = Pedido.objects.get_or_create(user=user,completado=False)
         incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=nuevo_pedido,producto=producto)
         incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
         nuevo_pedido.save()
@@ -86,7 +86,9 @@ def detalle(request, producto_id):
             incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=cesta,producto=producto)
             incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
             incluir_producto.save() 
-           
+
+    producto.cantidad = producto.cantidad-int(cantidadPedida) 
+    producto.save()
 
     messages.success(request, 'El producto se ha añadido al carrito de compra')
     return render(request, 'productos/detalle.html', {'producto': producto})

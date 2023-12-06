@@ -12,6 +12,15 @@
 </ul>
 {% endif %}
 
+{% if not user.is_authenticated %}
+<form class="d-flex" role="search" method="get" action="{% url 'seguimiento' %}">
+    <label for="search">Introduce tu número de pedido:</label>
+      <br>
+    <input class="form-control me-2" type="text" name="idPedido" id="search">
+    <button class="btn btn-secondary" type="submit">Buscar</button>
+</form>  
+{% endif %}
+
 <div class="row">
   {% for pedido in pedidos %}   
       <div class="col-3">
@@ -22,13 +31,13 @@
               {% for item in pedido.get_lista_de_productos_carrito %}
             <tr>
                 <p class="card-text">{{ item.producto.nombre }}</p>
-                <p class="card-text">{{ item.producto.cantidad }}</p>
-                <p class="card-text">${{ item.producto.precio }}</p>
+                <p class="card-text">{{ item.cantidad }}</p>
+                <p class="card-text">{{ item.get_total }} €</p>
             {% endfor %}
             <label for="estado"></label>
-                <td>Estado: {{ pedido.estado }}</td>
+                <td>Estado: {{ pedido.get_estado }}</td>
                 <label for="total"></label>
-                <td>Coste total: ${{ pedido.get_total_carrito }}</td>
+                <td>Coste total: {{ pedido.get_total_carrito }} €</td>
             </tr>
               </div>
           </div>
