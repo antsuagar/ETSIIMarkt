@@ -21,6 +21,7 @@ from clientes.views import IniciarSesionView, modificar_datos_usuario, perfil, r
 from django.contrib.auth.views import LogoutView
 from core.views import index
 from productos.views import catalogo, catalogo2
+from pedidos.views import procesar_pago, exito, error
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -35,6 +36,9 @@ urlpatterns = [
     path('registro/', register, name='registro_usuario'),
     path('perfil/', perfil, name='perfil_usuario'),
     path('modificar_perfil/', modificar_datos_usuario, name='modificar_perfil'),
+    path('procesar_pago/', procesar_pago, name='procesar_pago'),
+    path('exito/<str:cantidad>/', exito, name='exito'),
+    path('error/<str:error>/', error, name='error'),
 ]
     
 

@@ -113,3 +113,26 @@ nav.bg-body-tertiary {
     font-size: 30px !important;
   }
   
+  /*********** PROCESO DE PAGO *************/
+
+/* Estilo para la etiqueta del campo de tarjeta de crédito */
+.stripe-label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Estilo para el contenedor del campo de tarjeta de crédito */
+.stripe-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Estilo para los errores de Stripe */
+.stripe-errors {
+    color: #dc3545;  /* Color de error de Bootstrap por defecto */
+    font-size: 14px;
+    margin-top: 5px;
+}

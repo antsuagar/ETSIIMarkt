@@ -23,3 +23,10 @@ Cuando Visual Studio Code se abra estaréis en la carpeta base del repositorio. 
 Una vez ahí podeis hacer varias cosas:
 - Lanzar la aplicación: python manage.py runserver. Paradla con Ctrl+C.
 - Crear una nueva aplicación de Django: django-admin startapp nombre_app
+
+## **DATOS TARJETA PASARELA DE PAGO**
+
+Tarjeta exitosa: 4242424242424242 cualquier fecha, CVC y CP
+Tarjeta error: 4000000000000002 cualquier fecha, CVC y CP (error genérico)
+Tarjeta error: 4000000000009995 (fondos insuficientes)
+Enlace tarjetas de prueba: https://stripe.com/docs/testing?testing-method=card-numbers#visa
