@@ -21,7 +21,7 @@ from clientes.views import IniciarSesionView, modificar_datos_usuario, perfil, r
 from django.contrib.auth.views import LogoutView
 from core.views import index
 from productos.views import catalogo, catalogo2
-from pedidos.views import actualizar, eliminar, formulario_envio, procesar_pedido
+from pedidos.views import actualizar, eliminar, formulario_envio, procesar_pedido, pedidos_usuario
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -40,6 +40,7 @@ urlpatterns = [
     path('eliminar/<int:producto_id>/', eliminar, name='eliminar'),
     path('formulario_envio/', formulario_envio, name='formulario_envio'),
     path('pedido_realizado/', procesar_pedido, name='procesar_pedido'),
+    path('seguimiento/', pedidos_usuario, name='seguimiento'),
 ]
     
 

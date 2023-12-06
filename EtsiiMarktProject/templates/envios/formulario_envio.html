@@ -8,11 +8,17 @@
 </head>
 <body>
     <h2>Formulario de Envío</h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
     <form method="post" action="{% url 'procesar_pedido' %}">
         {% csrf_token %}
         
-        <!-- Campos del formulario -->
         <label for="idT">ID Transacción:</label>
         <input type="text" name="id_transaccion" required>
         <br>
@@ -26,16 +32,12 @@
         <input type="text" name="ciudad" required>
         <br>
         <label for="postal">Código postal:</label>
-        <input type="text" name="postal" required>
+        <input type="number" name="postal" required>
         <br>
-        <!-- Otros campos del formulario -->
 
         <button type="submit">Completar Pedido</button>
     </form>
 
-    <!-- Puedes agregar más contenido HTML según sea necesario -->
-
-<!-- Agrega este script después del formulario -->
 
 </body>
 

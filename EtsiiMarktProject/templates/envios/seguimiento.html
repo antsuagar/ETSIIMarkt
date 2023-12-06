@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo de Productos{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="row">
+  {% for pedido in pedidos %}   
+      <div class="col-3">
+          <div class="card p-2">
+              <div class="card-body">
+              <h5 class="card-title">Fecha de pedido: {{ pedido.fecha_pedido }}</h5>
+
+              {% for item in pedido.get_lista_de_productos_carrito %}
+            <tr>
+                <p class="card-text">{{ item.producto.nombre }}</p>
+                <p class="card-text">{{ item.producto.cantidad }}</p>
+                <p class="card-text">${{ item.producto.precio }}</p>
+            {% endfor %}
+            <label for="estado"></label>
+                <td>Estado: {{ pedido.estado }}</td>
+                <label for="total"></label>
+                <td>Coste total: ${{ pedido.get_total_carrito }}</td>
+            </tr>
+              </div>
+          </div>
+      </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}

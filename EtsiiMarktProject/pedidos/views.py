@@ -1,10 +1,14 @@
 import uuid
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .models import DireccionEnvio, Pedido, ProductoPedido
+from .models import DireccionEnvio, Pedido, ProductoPedido, EstadoProducto
 from django.contrib import messages
 from productos.models import Producto
 from datetime import datetime 
+from django.core.mail import send_mail
+from smtplib import SMTPRecipientsRefused
+from django.db.models import Q
+
 
 # Create your views here.
 def carrito(request):
@@ -84,11 +88,11 @@ def procesar_pedido(request):
     direccion = request.POST.get('direccion')
     ciudad = request.POST.get('ciudad')
     codigo_postal = request.POST.get('postal')
+    id_transaccion = request.POST.get('id_transaccion')
+    
+    emails = [email]
 
 
-    transaccion_id = request.POST.get('transaccion_id')
-
-        # Obtiene la fecha y hora actuales
     fecha_pedido = datetime.now()
 
     if request.user.is_authenticated:
@@ -101,20 +105,49 @@ def procesar_pedido(request):
         user = None
         del request.session['anonimo_id']
 
-  
+    
+    id_pedido = pedido.id 
+    nombre_productos = [p.producto.nombre for p in pedido.get_lista_de_productos_carrito()]
+    total = pedido.get_total_carrito
+    factura = ', '.join(nombre_productos)
+
+    try:
+        send_mail(
+        "Su pedido en Etsii Markt esta en marcha",
+        "Gracias por comprar con nosotros, le informamos que su pedido de {0} con un total de {1} esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido con el siguiente enlace /seguimiento/{5}".format(factura, total, direccion, ciudad, codigo_postal, id_pedido),
+        "etsiiMarktProyect@outlook.es",
+        emails,
+        fail_silently=False,
+        )
+    except SMTPRecipientsRefused as e:
+        messages.error('Error, la dirección de correo introducida: {0} es invalida'.format(email))
+        return render(request, 'envios/formulario_envio.html') 
+
     direccion_pedido, created = DireccionEnvio.objects.get_or_create(user=user, pedido=pedido, direccion=direccion, ciudad=ciudad, codigo_postal=codigo_postal)
     pedido.fecha_pedido = fecha_pedido
     pedido.completado = True
-    pedido.id_transaccion = transaccion_id
+    pedido.id_transaccion = id_transaccion
+    pedido.estado = EstadoProducto.EN_PREPARACION
 
     direccion_pedido.save()
     pedido.save()
 
-    id_pedido = pedido.id 
+
+    messages.success(request, 'El pedido se ha completado correctamente, se ha enviado un correo con el seguimiento y puede acceder a el con el siguiente enlace: .../seguimiento/{0}'.format(id_pedido))
     
-    print(id_pedido)
-    messages.success(request, 'El pedido se ha completado correctamente, se ha enviado un correo con el seguimiento y puede acceder a el con el siguiente enlace: .../seguimiento/producto_id')
-
-    # Mandar email aqui
-
+ 
     return render(request, 'home.html')
+
+def pedidos_usuario(request):
+
+    if request.user.is_authenticated:
+        user=request.user
+      
+    else:
+        messages.error('Ups, registrese para ver el seguimiento de sus pedidos')
+        return render(request, 'envios/seguimiento.html')
+    
+    pedidos = Pedido.objects.all().filter(Q(user=user) & Q(completado=True))
+
+    return render(request, 'envios/seguimiento.html', {'pedidos': pedidos})
+
