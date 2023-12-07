@@ -1,10 +1,13 @@
 import uuid
+from django.http import HttpResponse
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from .forms import OpinionForm
 
 from pedidos.models import Pedido, ProductoPedido
 
-from productos.models import Fabricante, Producto, Categoria
+from productos.models import Fabricante, Opinion, Producto, Categoria
 from django.db.models import Q
 
 
@@ -57,10 +60,11 @@ def catalogo2(request):
 def detalle(request, producto_id):
     producto = get_object_or_404(Producto, pk=producto_id)
     cantidadPedida = request.GET.get('cantidad','')
+    opiniones = Opinion.objects.all().filter(producto=producto)
     
 
     if cantidadPedida =='':
-        return render(request, 'productos/detalle.html', {'producto': producto})
+        return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones})
 
     elif request.user.is_authenticated:
         user=request.user
@@ -69,7 +73,7 @@ def detalle(request, producto_id):
         incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
         nuevo_pedido.save()
         incluir_producto.save()     
-
+        messages.success(request, 'El producto se ha añadido al carrito de compra')
     else:  
         if 'anonimo_id' not in request.session:
             request.session['anonimo_id'] = str(uuid.uuid4())
@@ -78,7 +82,7 @@ def detalle(request, producto_id):
             nuevo_pedido.save()
             incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=int(cantidadPedida))
             incluir_producto.save()
-                
+            messages.success(request, 'El producto se ha añadido al carrito de compra') 
                
         else:
             anonimo_id = request.session['anonimo_id']
@@ -86,12 +90,25 @@ def detalle(request, producto_id):
             incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=cesta,producto=producto)
             incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
             incluir_producto.save() 
-
-    producto.cantidad = producto.cantidad-int(cantidadPedida) 
-    producto.save()
-
-    messages.success(request, 'El producto se ha añadido al carrito de compra')
-    return render(request, 'productos/detalle.html', {'producto': producto})
+            messages.success(request, 'El producto se ha añadido al carrito de compra')
 
     
+    return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones})
+
+def agregar_opinion(request, producto_id):
+    producto = Producto.objects.get(pk=producto_id)
+
+    if request.method == 'POST':
+        form = OpinionForm(request.POST)
+        if form.is_valid():
+            nueva_opinion = form.save(commit=False)
+            nueva_opinion.user = request.user
+            nueva_opinion.producto = producto
+            nueva_opinion.save()
+            url = reverse('detalle', kwargs={'producto_id':producto_id})
+            return HttpResponseRedirect(url)
+    else:
+        form = OpinionForm()
+
+    return render(request, 'productos/agregar_opinion.html', {'producto': producto, 'form': form})
                             
