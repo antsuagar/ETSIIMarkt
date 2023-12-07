@@ -125,7 +125,6 @@ def procesar_pedido(request):
 
             # Redirigir a la página de éxito si el pago se procesa correctamente
             #return redirect(reverse('exito'), amount=cargo.amount, currency=cargo.currency)
-            url = reverse('exito', kwargs={'cantidad':cargo.amount})
 
         except stripe.error.CardError as e:
             # El pago ha sido rechazado por Stripe, redirigir a la página de error
@@ -198,43 +197,6 @@ def pedidos_usuario(request):
     
     return render(request, 'envios/seguimiento.html', {'pedidos': pedidos})
 
-
-
-# Pasarela de pago
-
-
-def procesar_pago(request):
-    if request.method == 'POST':
-        # Obtener los datos del formulario
-        token = request.POST.get('stripeToken')
-        cantidad = int(request.POST.get('cantidad','0'))
-
-        try:
-            # Crear un cargo en Stripe
-            cargo = stripe.Charge.create(
-                amount=cantidad*100,
-                currency='eur',  # Puedes cambiar a la moneda que prefieras
-                description='Pago de prueba',
-                source=token,
-            )
-
-            # Redirigir a la página de éxito si el pago se procesa correctamente
-            #return redirect(reverse('exito'), amount=cargo.amount, currency=cargo.currency)
-            url = reverse('exito', kwargs={'cantidad':cargo.amount})
-            return HttpResponseRedirect(url)
-
-        except stripe.error.CardError as e:
-            # El pago ha sido rechazado por Stripe, redirigir a la página de error
-            #error_msg = e.error.message
-            #return redirect('error', error=error_msg)
-            url = reverse('error', kwargs={'error':e.error.message})
-            return HttpResponseRedirect(url)            
-
-    return render(request, 'pedidos/payment.html')
-
-def exito(request, cantidad):
-    context = {'cantidad': cantidad}
-    return render(request, 'pedidos/payment_success.html', context)
 
 def error(request, error):
     #error_msg = request.GET.get('error', 'Error en el pago')
