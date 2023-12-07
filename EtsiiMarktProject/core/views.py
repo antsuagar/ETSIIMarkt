@@ -9,3 +9,6 @@ def index(request):
 
 def nosotros(request):  
     return render(request, 'empresa/nosotros.html')
+
+def devoluciones(request):  
+    return render(request, 'empresa/devoluciones.html')
