@@ -68,7 +68,7 @@ def detalle(request, producto_id):
 
     elif request.user.is_authenticated:
         user=request.user
-        nuevo_pedido, created = Pedido.objects.get_or_create(user=user)
+        nuevo_pedido, created = Pedido.objects.get_or_create(user=user,completado=False)
         incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=nuevo_pedido,producto=producto)
         incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
         nuevo_pedido.save()
@@ -78,7 +78,7 @@ def detalle(request, producto_id):
         if 'anonimo_id' not in request.session:
             request.session['anonimo_id'] = str(uuid.uuid4())
             anonimo_id = request.session['anonimo_id']
-            nuevo_pedido = Pedido(user=None,id_transaccion=anonimo_id)
+            nuevo_pedido, created = Pedido.objects.get_or_create(user=None,id_transaccion=anonimo_id)
             nuevo_pedido.save()
             incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=int(cantidadPedida))
             incluir_producto.save()

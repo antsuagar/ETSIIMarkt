@@ -3,26 +3,47 @@
 {% block title %}Catálogo de Productos{% endblock %}
 
 {% block content %}
+<h2 class="text-center">CATÁLOGO DE <span class="text-dark">PRODUCTOS</span></h2>
 
-<div class="col">
-    <form class="d-flex" role="search" method="get" action="{% url 'catalogo2' %}">
-      <label for="busqueda">Búsqueda avanzada:</label>
-      <select name="categoria" id="categoria">
-        {% for categoria in categorias %}
-            <option  value="{{ categoria.nombre }}" {% if categoria == '{{categoria.nombre}}' %}selected{% endif %}>{{ categoria.nombre }}</option>
-        {% endfor %}
-      </select>
-      <select name="fabricante" id="fabricante">
-        {% for fabricante in fabricantes %}
-            <option value="{{ fabricante.nombre }}" {% if fabricante == '{{fabricante.nombre}}' %}selected{% endif %}>{{ fabricante.nombre }}</option>
-        {% endfor %}
-      </select>
-      <input class="form-control me-2" type="number" name="precioMin" min="0" id="precioMin" placeholder="Precio Mínimo">
-      <input class="form-control me-2" type="number" name="precioMax" min="0" id="precioMax" placeholder="Precio Máximo">
-      <br>
-      <button class="btn btn-primary" type="submit">Buscar</button>
-    </form>  
+<div class="border mb-2 busqueda p-3">
+<form role="search" method="get" action="{% url 'catalogo2' %}">
+<h3>Búsqueda avanzada</h3>
+    <div class="row m-0  border-1">
+        
+          <div class="mb-3 col-6">
+            <label for="busqueda"  class="form-label">Buscar por categoría:</label>
+            <select name="categoria" id="categoria" class="form-select">
+                <option>Seleccione una categoría</option>
+                {% for categoria in categorias %}
+                    <option  value="{{ categoria.nombre }}" {% if categoria == '{{categoria.nombre}}' %}selected{% endif %}>{{ categoria.nombre }}</option>
+                {% endfor %}
+            </select>
+
+          </div>
+          <div class="mb-3 col-6">
+            <label for="fabricante" class="form-label">Fabricante: </label>
+            <select name="fabricante" id="fabricante" class="form-select">
+                <option>Seleccione un fabricante</option>
+                {% for fabricante in fabricantes %}
+                    <option value="{{ fabricante.nombre }}" {% if fabricante == '{{fabricante.nombre}}' %}selected{% endif %}>{{ fabricante.nombre }}</option>
+                {% endfor %}
+              </select>
+          </div>
     
+          <div class="mb-3 col-6">
+            <label for="precioMin" class="form-label">Precio mínimo: </label>
+            <input class="form-control me-2" type="number" name="precioMin" min="0" id="precioMin" placeholder="Precio Mínimo">
+          </div>
+          <div class="mb-3 col-6">
+            <label for="precioMax" class="form-label">Precio máximo: </label>
+            <input class="form-control me-2" type="number" name="precioMax" min="0" id="precioMax" placeholder="Precio Máximo">
+          </div> 
+        </div>        
+        <div class="row">
+          <div class="col-md-4 offset-md-4"><button type="submit" class="btn btn-primary" id="buscar">Buscar</button></div>
+        </div>
+    
+</form>
 </div>
 
 <div class="row">

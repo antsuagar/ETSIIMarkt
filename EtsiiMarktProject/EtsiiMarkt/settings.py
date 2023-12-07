@@ -29,6 +29,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'etsiimarktproyect@outlook.es'  
+EMAIL_HOST_PASSWORD = 'pgpi12345'  
+EMAIL_USE_TLS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -136,3 +143,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'index'
+
+# settings.py
+
+STRIPE_PUBLIC_KEY = 'pk_test_51OJe72EuWRxRJueoJYOkv7WighMdCdzF2uEvKh4kSCSKWAiTGAe9UWPI8hqEFBqZ7amOHaoHRULjCYLLOmj2V5oq00pIBAY3zF'
+STRIPE_SECRET_KEY = 'sk_test_51OJe72EuWRxRJueoRLXhuB2us5H5nJFQRn02WrVfTyGtZGVopiWMyfDJHk7y0mD7wVXnKPL5UXn7lkoIwjafoemJ0022EMLQvB'
