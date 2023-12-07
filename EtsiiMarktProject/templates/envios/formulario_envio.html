@@ -19,8 +19,10 @@
     <form method="post" action="{% url 'procesar_pedido' %}">
         {% csrf_token %}
         
-        <label for="idT">ID Transacción:</label>
-        <input type="text" name="id_transaccion" required>
+        <select name="formaPago">
+            <option value="contrarrempolso">Pagar a contrareembolso</option>
+            <option value="pasarela">Pagar online</option>
+          </select>
         <br>
         <label for="email">Email:</label>
         <input type="email" name="email" required>
@@ -34,6 +36,8 @@
         <label for="postal">Código postal:</label>
         <input type="number" name="postal" required>
         <br>
+        <input name="pedido_id" type="hidden" value="{{pedido_id}}" />
+         
 
         <button type="submit">Completar Pedido</button>
     </form>

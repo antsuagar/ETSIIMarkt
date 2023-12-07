@@ -22,6 +22,7 @@ from django.contrib.auth.views import LogoutView
 from core.views import index
 from productos.views import catalogo, catalogo2
 from pedidos.views import actualizar, eliminar, formulario_envio, procesar_pedido, pedidos_usuario
+from pedidos.views import procesar_pago, exito, error
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,9 +39,12 @@ urlpatterns = [
     path('modificar_perfil/', modificar_datos_usuario, name='modificar_perfil'),
     path('actualizar/<int:producto_id>/', actualizar, name='actualizar'),
     path('eliminar/<int:producto_id>/', eliminar, name='eliminar'),
-    path('formulario_envio/', formulario_envio, name='formulario_envio'),
+    path('formulario_envio/<int:pedido_id>/', formulario_envio, name='formulario_envio'),
     path('pedido_realizado/', procesar_pedido, name='procesar_pedido'),
     path('seguimiento/', pedidos_usuario, name='seguimiento'),
+    path('procesar_pago/', procesar_pago, name='procesar_pago'),
+    path('exito/<str:cantidad>/', exito, name='exito'),
+    path('error/<str:error>/', error, name='error'),
 ]
     
 

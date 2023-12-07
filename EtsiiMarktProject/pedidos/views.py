@@ -1,5 +1,9 @@
 import uuid
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
+from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+import stripe
 
 from .models import DireccionEnvio, Pedido, ProductoPedido, EstadoProducto
 from django.contrib import messages
@@ -8,6 +12,7 @@ from datetime import datetime
 from django.core.mail import send_mail
 from smtplib import SMTPRecipientsRefused
 from django.db.models import Q
+
 
 
 # Create your views here.
@@ -84,9 +89,10 @@ def eliminar(request, producto_id):
     return render(request, 'productos/carrito.html', context)
 
 
-def formulario_envio(request):
+def formulario_envio(request, pedido_id):
+    return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id})
 
-    return render(request, 'envios/formulario_envio.html')
+stripe.api_key = 'sk_test_51OJe72EuWRxRJueoRLXhuB2us5H5nJFQRn02WrVfTyGtZGVopiWMyfDJHk7y0mD7wVXnKPL5UXn7lkoIwjafoemJ0022EMLQvB'
 
 def procesar_pedido(request):
     
@@ -94,8 +100,40 @@ def procesar_pedido(request):
     direccion = request.POST.get('direccion')
     ciudad = request.POST.get('ciudad')
     codigo_postal = request.POST.get('postal')
-    id_transaccion = request.POST.get('id_transaccion')
+    pedido_id = request.POST.get('pedido_id')
+    forma_pago = request.POST.get('formaPago')
+    pagado = request.POST.get('pagado','')
+    pedido = get_object_or_404(Pedido,pk=pedido_id)
+
+    if forma_pago=='pasarela' and pagado=='':
+        return render(request, 'pedidos/payment.html', {'pedido':pedido, 'email':email, 'direccion': direccion, 'ciudad':ciudad, 'postal':codigo_postal,'formaPago':forma_pago}) 
     
+    elif forma_pago=='pasarela' and pagado=='tarjeta':
+        cantidad = request.POST.get('cantidad','0')
+        amount = float(cantidad)*100
+        token = request.POST.get('stripeToken')
+
+        try:
+            # Crear un cargo en Stripe
+            cargo = stripe.Charge.create(
+                amount=int(amount),
+                currency='eur',  # Puedes cambiar a la moneda que prefieras
+                description='pago etsiimarkt',
+                source=token,
+                
+            )
+
+            # Redirigir a la página de éxito si el pago se procesa correctamente
+            #return redirect(reverse('exito'), amount=cargo.amount, currency=cargo.currency)
+            url = reverse('exito', kwargs={'cantidad':cargo.amount})
+
+        except stripe.error.CardError as e:
+            # El pago ha sido rechazado por Stripe, redirigir a la página de error
+            #error_msg = e.error.message
+            #return redirect('error', error=error_msg)
+            url = reverse('error', kwargs={'error':e.error.message})
+            return HttpResponseRedirect(url)    
+        
     emails = [email]
 
 
@@ -103,11 +141,8 @@ def procesar_pedido(request):
 
     if request.user.is_authenticated:
         user=request.user
-        pedido = get_object_or_404(Pedido, user=user,completado=False)
       
     else:
-        anonimo_id = request.session['anonimo_id']
-        pedido = get_object_or_404(Pedido, id_transaccion=anonimo_id)
         user = None
         del request.session['anonimo_id']
 
@@ -132,14 +167,17 @@ def procesar_pedido(request):
     direccion_pedido, created = DireccionEnvio.objects.get_or_create(user=user, pedido=pedido, direccion=direccion, ciudad=ciudad, codigo_postal=codigo_postal)
     pedido.fecha_pedido = fecha_pedido
     pedido.completado = True
-    pedido.id_transaccion = id_transaccion
+    if forma_pago=='pasarela':
+        pedido.id_transaccion = token
+    else:
+        pedido.id_transaccion = 'Contrareembolso'
+    
     pedido.estado = EstadoProducto.EN_PREPARACION
-
     direccion_pedido.save()
     pedido.save()
 
 
-    messages.success(request, 'El pedido se ha completado correctamente, se ha enviado un correo con el seguimiento y puede acceder a el con el siguiente enlace: .../seguimiento/{0}'.format(id_pedido))
+    messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente, se ha enviado un correo con el seguimiento y puede hacer su seguimiento en la pestañas Pedidos realizados'.format(id_pedido))
     
  
     return render(request, 'home.html')
@@ -160,3 +198,45 @@ def pedidos_usuario(request):
     
     return render(request, 'envios/seguimiento.html', {'pedidos': pedidos})
 
+
+
+# Pasarela de pago
+
+
+def procesar_pago(request):
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        token = request.POST.get('stripeToken')
+        cantidad = int(request.POST.get('cantidad','0'))
+
+        try:
+            # Crear un cargo en Stripe
+            cargo = stripe.Charge.create(
+                amount=cantidad*100,
+                currency='eur',  # Puedes cambiar a la moneda que prefieras
+                description='Pago de prueba',
+                source=token,
+            )
+
+            # Redirigir a la página de éxito si el pago se procesa correctamente
+            #return redirect(reverse('exito'), amount=cargo.amount, currency=cargo.currency)
+            url = reverse('exito', kwargs={'cantidad':cargo.amount})
+            return HttpResponseRedirect(url)
+
+        except stripe.error.CardError as e:
+            # El pago ha sido rechazado por Stripe, redirigir a la página de error
+            #error_msg = e.error.message
+            #return redirect('error', error=error_msg)
+            url = reverse('error', kwargs={'error':e.error.message})
+            return HttpResponseRedirect(url)            
+
+    return render(request, 'pedidos/payment.html')
+
+def exito(request, cantidad):
+    context = {'cantidad': cantidad}
+    return render(request, 'pedidos/payment_success.html', context)
+
+def error(request, error):
+    #error_msg = request.GET.get('error', 'Error en el pago')
+    context = {'error': error}
+    return render(request, 'pedidos/payment_failure.html', context)
