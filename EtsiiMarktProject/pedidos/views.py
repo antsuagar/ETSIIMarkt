@@ -154,7 +154,7 @@ def procesar_pedido(request):
     try:
         send_mail(
         "Su pedido en Etsii Markt esta en marcha",
-        "Gracias por comprar con nosotros, le informamos que su pedido de {0} con un total de {1} esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido en nuestra página web introduciendo el número de su pedido: {5} en el apartado de pedidos realizados o estando registrado en nuestra web".format(factura, total, direccion, ciudad, codigo_postal, id_pedido),
+        "Gracias por comprar con nosotros, le informamos que su pedido de {0} con un total de {1} euros esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido en nuestra página web introduciendo el número de su pedido: {5} en el apartado de pedidos realizados o estando registrado en nuestra web".format(factura, total, direccion, ciudad, codigo_postal, id_pedido),
         "etsiiMarktProyect@outlook.es",
         emails,
         fail_silently=False,
