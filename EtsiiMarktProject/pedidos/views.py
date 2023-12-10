@@ -42,6 +42,7 @@ def carrito(request):
 def actualizar(request, producto_id):
     q_cantidad = request.POST.get('cantidad', '1')
     q_producto = get_object_or_404(Producto, pk=producto_id)
+    q_montar = request.POST.get('montar_domicilio','False')
 
     if request.user.is_authenticated:
         user=request.user
@@ -54,6 +55,10 @@ def actualizar(request, producto_id):
     producto_pedido, createdP= ProductoPedido.objects.get_or_create(pedido=pedido,producto=q_producto)
     q_producto.cantidad = q_producto.cantidad+(producto_pedido.cantidad-int(q_cantidad))
     producto_pedido.cantidad =q_cantidad
+    if q_montar!='False':
+        producto_pedido.montar_domicilio=True
+    else:
+        producto_pedido.montar_domicilio=q_montar
     producto_pedido.save() 
     q_producto.save()  
 

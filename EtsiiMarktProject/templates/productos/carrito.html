@@ -10,6 +10,7 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Precio unitario</th>
                 <th scope="col">Cantidad</th>
+                <th scope="col">Montaje a domicilio</th>
                 <th scope="col">Subtotal</th>
                 <th scope="col">Acciones</th>
             </tr>
@@ -22,7 +23,10 @@
                 <td>
                     <form action="{% url 'actualizar' item.producto.id %}" method="post" class="form-inline">
                         {% csrf_token %}
-                        <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.cantidad }}" class="form-control mr-2">
+                     <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.cantidad }}" class="form-control mr-2">
+                    </td>
+                     <td>  
+                        <input type="checkbox" name="montar_domicilio" {% if item.montar_domicilio %} checked {% endif %}>
                         <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
                     </form>
                 </td>

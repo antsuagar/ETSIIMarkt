@@ -50,6 +50,7 @@ class Pedido(models.Model):
 class ProductoPedido(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
     pedido= models.ForeignKey(Pedido, on_delete=models.SET_NULL, null=True)
+    montar_domicilio= models.BooleanField(default=False)
     cantidad = models.IntegerField(default=0, null=True, blank=True)
 
     @property
