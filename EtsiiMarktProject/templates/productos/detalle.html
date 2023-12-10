@@ -41,20 +41,19 @@
 
 
 </div>
-<div class="row opiniones">
-    <h2>Opiniones</h2>
-    <ul>
+<div class="row opiniones mt-3">
+    <ul class="list-group col-12 mb-3">
+        <li class="list-group-item active" aria-current="true">Opiniones</li>
         {% for opinion in opiniones %}
-            <li>
-                <strong>{{ opinion.user.username }}</strong>: {{ opinion.cuerpo }}
-            </li>
+        <li class="list-group-item"><strong>{{ opinion.user.username }}</strong>: {{ opinion.cuerpo }}</li>
         {% empty %}
-             <li>No hay opiniones aún.</li>
+        <li class="list-group-item">No hay opiniones aún.</li>
         {% endfor %}
-    </ul>
-    {% if user.is_authenticated %}
-        <a class="btn btn-secondary" href="{% url 'agregar_opinion' producto.id %}">Agregar opinión</a>
-    {% endif %}
+     </ul>
+        {% if user.is_authenticated %}
+        <a class="btn btn-secondary col-3" href="{% url 'agregar_opinion' producto.id %}">Agregar opinión</a>
+    {% endif %}       
+   
 </div>
 
 
