@@ -1,5 +1,5 @@
 import uuid
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -12,8 +12,11 @@ from datetime import datetime
 from django.core.mail import send_mail
 from smtplib import SMTPRecipientsRefused
 from django.db.models import Q
-
-
+from .forms import ReclamacionForm
+from django.utils import formats
+from django.utils import translation
+from django.contrib.auth.decorators import login_required
+from .models import Reclamacion
 
 # Create your views here.
 def carrito(request):
@@ -202,3 +205,63 @@ def error(request, error):
     #error_msg = request.GET.get('error', 'Error en el pago')
     context = {'error': error}
     return render(request, 'pedidos/payment_failure.html', context)
+
+@login_required
+def agregar_reclamacion(request, pedido_id):
+    pedido = Pedido.objects.get(pk=pedido_id)
+
+    if request.method == 'POST':
+        form = ReclamacionForm(request.POST)
+        if form.is_valid():
+            nueva_reclamacion = form.save(commit=False)
+            nueva_reclamacion.user = request.user
+            nueva_reclamacion.pedido = pedido
+            nueva_reclamacion.save()
+
+            # Obtén la fecha del pedido en el formato deseado
+            translation.activate('es')
+            fecha_pedido = formats.date_format(pedido.fecha_pedido, "SHORT_DATE_FORMAT")
+
+            # Construye el mensaje de éxito con la fecha del pedido
+            mensaje_exito = f'Tu reclamación del pedido con fecha {fecha_pedido} ha sido guardada con éxito.'
+
+            # Agregar el mensaje de éxito
+            messages.success(request, mensaje_exito)
+            translation.deactivate()
+
+            url = reverse('seguimiento')
+            return HttpResponseRedirect(url)
+    else:
+        form = ReclamacionForm()
+
+    return render(request, 'envios/agregar_reclamacion.html', {'pedido': pedido, 'form': form})
+
+@login_required
+def reclamaciones_cliente(request):
+    reclamaciones = Reclamacion.objects.filter(pedido__user=request.user)
+
+    return render(request, 'envios/reclamaciones_cliente.html', {'reclamaciones': reclamaciones})
+
+@login_required
+def editar_reclamacion(request, reclamacion_id):
+    reclamacion = get_object_or_404(Reclamacion, pk=reclamacion_id, pedido__user=request.user)
+
+    if request.method == 'POST':
+        form = ReclamacionForm(request.POST, instance=reclamacion)
+        if form.is_valid():
+            reclamacion.resolucion = 'por_resolver'
+            form.save()
+            return HttpResponseRedirect(reverse('reclamaciones_cliente'))
+    else:
+        form = ReclamacionForm(instance=reclamacion)
+
+    return render(request, 'envios/editar_reclamacion.html', {'form': form, 'reclamacion': reclamacion})
+
+def eliminar_reclamacion(request, reclamacion_id):
+    reclamacion = get_object_or_404(Reclamacion, pk=reclamacion_id, pedido__user=request.user)
+
+    if request.method == 'POST':
+        reclamacion.delete()
+        return redirect('reclamaciones_cliente')
+
+    return render(request, 'envios/eliminar_reclamacion.html', {'reclamacion': reclamacion})

@@ -66,3 +66,21 @@ class DireccionEnvio(models.Model):
     
     def __str__(self):
         return self.direccion
+
+class Reclamacion(models.Model):
+    ESTADO_CHOICES = [
+        ('por_resolver', 'Por Resolver'),
+        ('en_proceso', 'En Proceso'),
+        ('solucionado', 'Solucionado'),
+    ]
+
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, null=False)
+    cuerpo = models.CharField(max_length=500)
+    resolucion = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='por_resolver', verbose_name="Estado de la Reclamación")
+
+    class Meta:
+        ordering = ['pedido']
+        verbose_name_plural = 'Reclamaciones'
+
+    def __str__(self):
+        return f"Reclamación de {self.pedido.user.username} en el pedido {self.pedido.id}"

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Reclamación{% endblock %}
+
+{% block content %}
+  <h2>Editar Reclamación</h2>
+  
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><h6>Si se cambia la reclamación se procesará de nuevo, por lo que volverá al estado de Por Resolver.</h6></p>
+    <button type="submit" class="btn btn-secondary">Guardar cambios</button>
+  </form>
+{% endblock %}
