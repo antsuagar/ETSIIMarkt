@@ -24,7 +24,12 @@
                           </li>                          
                           <li class="nav-item">
                             <a class="nav-link" href="/catalogo">Catálogo de productos</a>
-                          </li> 
+                          </li>
+                          {% if user.is_authenticated %}
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{% url 'reclamaciones_cliente' %}">Mis reclamaciones</a>
+                              </li>
+                          {% endif %}
                         </ul>
                         
                       </div>

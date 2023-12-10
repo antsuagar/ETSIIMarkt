@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Reclamaciones{% endblock %}
+
+{% block content %}
+  <h2>Mis Reclamaciones</h2>
+  
+  <div class="mb-4">
+    <a class="btn btn-secondary" href="{% url 'seguimiento' %}">Agregar reclamación</a>
+  </div>
+
+  {% if reclamaciones %}
+    <div class="row">
+      {% for reclamacion in reclamaciones %}
+        <div class="col-3">
+          <div class="card p-2">
+            <div class="card-body">
+              <h5 class="card-title">Reclamación del pedido con fecha {{ reclamacion.pedido.fecha_pedido|date:"d/m/Y" }}</h5>
+              <hr>
+              <p class="card-text">{{ reclamacion.cuerpo }}</p>
+              <hr>
+              <p class="card-text">Estado: {{ reclamacion.get_resolucion_display }}</p>
+            </div>
+          </div>
+          <div class="text-center">
+            <a href="{% url 'editar_reclamacion' reclamacion.id %}" class="btn btn-secondary">Editar</a>
+            <a href="{% url 'eliminar_reclamacion' reclamacion.id %}" class="btn btn-danger">Eliminar</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center">No tienes reclamaciones.</p>
+  {% endif %}
+{% endblock %}

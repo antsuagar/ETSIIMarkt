@@ -26,14 +26,16 @@
       <div class="col-3">
           <div class="card p-2">
               <div class="card-body">
-              <h5 class="card-title">Fecha de pedido: {{ pedido.fecha_pedido }}</h5>
+              <h5 class="card-title">Fecha de pedido: {{ pedido.fecha_pedido|date:"d/m/Y" }}</h5>
+              <hr>
 
-              {% for item in pedido.get_lista_de_productos_carrito %}
+            {% for item in pedido.get_lista_de_productos_carrito %}
             <tr>
                 <p class="card-text">{{ item.producto.nombre }}</p>
-                <p class="card-text">{{ item.cantidad }}</p>
-                <p class="card-text">{{ item.get_total }} €</p>
+                <td class="card-text">&nbsp;&nbsp; - Unidades: {{ item.cantidad }}</td>
+                <p class="card-text">&nbsp;&nbsp; - Coste: {{ item.get_total }} €</p>
             {% endfor %}
+            <hr>    
             <label for="estado"></label>
                 <td>Estado: {{ pedido.get_estado }}</td>
                 <label for="total"></label>
@@ -41,6 +43,11 @@
             </tr>
               </div>
           </div>
+          {% if user.is_authenticated %}
+          <div class="text-center">
+            <a class="btn btn-secondary" href="{% url 'agregar_reclamacion' pedido.id %}">Agregar reclamación</a>
+          </div>
+          {% endif %}
       </div>
   {% endfor %}
 </div>
