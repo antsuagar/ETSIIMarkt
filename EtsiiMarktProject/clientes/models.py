@@ -12,3 +12,4 @@ class DireccionCliente(models.Model):
 
     def __str__(self):
         return f"Dirección de {self.user}"  
+    

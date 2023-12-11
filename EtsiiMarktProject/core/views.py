@@ -1,3 +1,4 @@
+import random
 import uuid
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -6,7 +7,9 @@ from productos.models import Producto, Categoria
 
 
 def index(request):    
-    productos = Producto.objects.all()
+    items = list(Producto.objects.all())
+    # change 3 to how many random items you want
+    productos = random.sample(items, 4)
     categorias = Categoria.objects.all()
     return render(request, 'home.html', {'productos': productos, 'categorias': categorias})
 

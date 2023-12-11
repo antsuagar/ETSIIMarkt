@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Dirección de envío del pedido{% endblock %}
+
 {% block content %}
 <head>
     <meta charset="UTF-8">
@@ -18,28 +20,29 @@
 
     <form method="post" action="{% url 'procesar_pedido' %}">
         {% csrf_token %}
-        
-        <select name="formaPago">
-            <option value="contrarrempolso">Pagar a contrareembolso</option>
-            <option value="pasarela">Pagar online</option>
+
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="formaPago">
+            <option selected>Seleccione el método de pago</option>
+            <option value="contrarrempolso">Contrareembolso</option>
+            <option value="pasarela">Pago online con tarjeta de crédito</option>
           </select>
         <br>
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
-        <br>
-        <label for="direccion">Dirección de Envío:</label>
-        <input type="text" name="direccion" required>
-        <br>
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" name="ciudad" required>
-        <br>
-        <label for="postal">Código postal:</label>
-        <input type="number" name="postal" required>
-        <br>
-        <input name="pedido_id" type="hidden" value="{{pedido_id}}" />
+        <p><label for="email">Email:</label>
+        <input type="email" name="email" required value = "{{email}}"></p>
+
+        <p><label for="direccion">Dirección de Envío:</label>
+        <input type="text" name="direccion" required value = "{{direccion}}"></p>
+
+        <p><label for="ciudad">Ciudad:</label>
+        <input type="text" name="ciudad" required value = "{{ciudad}}"></p>
+        
+        <p><label for="postal">Código postal:</label>
+        <input type="number" name="postal" required value = "{{postal}}"></p>
+        
+        <p><input name="pedido_id" type="hidden" value="{{pedido_id}}" /></p>
          
 
-        <button type="submit">Completar Pedido</button>
+        <button class="btn btn-secondary" type="submit">Continuar</button>
     </form>
 
 

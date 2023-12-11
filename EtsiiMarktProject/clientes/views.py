@@ -81,13 +81,11 @@ def logout_personalizado(request):
     return redirect('/logout')  
 
 @login_required
-def editar_direccion_envio(request):
-    # Obtener la instancia de DireccionEnvio del usuario actual (asumiendo que tienes algún método para obtener al usuario actual)
-    usuario_actual = request.user  # Obtener el usuario actual, puedes usar tu método de autenticación aquí
-
-    # Buscar la dirección de envío del usuario actual o crear una nueva si no existe
+def editar_direccion_envio(request):  
+    usuario_actual = request.user  
+    
     try:
-        direccion_envio = DireccionCliente.objects.get(user=usuario_actual)  # Ajusta esto según tu modelo de cliente
+        direccion_envio = DireccionCliente.objects.get(user=usuario_actual)  
     except DireccionCliente.DoesNotExist:
         direccion_envio = DireccionCliente(user=usuario_actual)
     
@@ -95,7 +93,7 @@ def editar_direccion_envio(request):
         form = UserDireccionForm(request.POST, instance=direccion_envio)
         if form.is_valid():
             form.save()
-            return redirect('/perfil')  # Reemplaza 'ruta_de_redireccion' con la URL a donde quieres redirigir después de guardar la dirección
+            return redirect('/perfil')  
     else:
         form = UserDireccionForm(instance=direccion_envio)
     

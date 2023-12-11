@@ -50,7 +50,7 @@ urlpatterns = [
     path('nosotros', nosotros, name='nosotros'),
     path('devoluciones', devoluciones, name='devoluciones'),
     path('logout_personalizado', logout_personalizado, name='logout_personalizado'),
-    path('direccion_envio/', editar_direccion_envio, name='direccion_envio'),
+    path('clientes/direccion_envio/', editar_direccion_envio, name='editar_direccion_envio'),
 ]
     
 

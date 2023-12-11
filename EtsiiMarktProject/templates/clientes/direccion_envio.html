@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Mi dirección{% endblock %}
+
 {% block content %}
 <head>
     <meta charset="UTF-8">
@@ -8,34 +10,13 @@
 </head>
 <body>
     <h2>Dirección de Envío</h2>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    <form method="post" action="{% url 'procesar_pedido' %}">
-        {% csrf_token %}
         
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" name="email" required value={{user.email}}>
-        <br>
-        <label for="direccion">Dirección de Envío:</label>
-        <input type="text" name="direccion" required>
-        <br>
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" name="ciudad" required>
-        <br>
-        <label for="postal">Código postal:</label>
-        <input type="number" name="postal" required>
-        <br>
-        <input name="pedido_id" type="hidden" value="{{pedido_id}}" />
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary" type="submit">Guardar cambios</button>
+        </form>
          
-
-        <button type="submit">Guardar</button>
     </form>
 
 

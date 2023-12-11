@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import stripe
 
+from clientes.models import DireccionCliente
+
 from .models import DireccionEnvio, Pedido, ProductoPedido, EstadoProducto
 from django.contrib import messages
 from productos.models import Producto
@@ -97,8 +99,19 @@ def eliminar(request, producto_id):
 
 
 def formulario_envio(request, pedido_id):
-    return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id})
+    user = request.user
+    if request.user.is_authenticated:
+        direccionCliente = DireccionCliente.objects.get(user=user)
+        email = user.email
+        direccion = direccionCliente.direccion
+        ciudad = direccionCliente.ciudad
+        postal = direccionCliente.postal
+        return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id, 'email': email, 'postal': postal, 'direccion': direccion, 'ciudad': ciudad})
+    else:
+        return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id})
 
+
+    
 stripe.api_key = 'sk_test_51OJe72EuWRxRJueoRLXhuB2us5H5nJFQRn02WrVfTyGtZGVopiWMyfDJHk7y0mD7wVXnKPL5UXn7lkoIwjafoemJ0022EMLQvB'
 
 def procesar_pedido(request):
