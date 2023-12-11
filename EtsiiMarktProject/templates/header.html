@@ -58,29 +58,14 @@
                   </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-2">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Todas las categorías
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
-                      <li><a class="dropdown-item" href="#">Fotografía</a></li>
-                      <li><a class="dropdown-item" href="#">Informática</a></li>
-                      <li><a class="dropdown-item" href="#">Juegos y Consolas</a></li>
-                      <li><a class="dropdown-item" href="#">Telefonía</a></li>
-                      <li><a class="dropdown-item" href="#">Televisión</a></li>
-                    </ul>
-                  </div>
-            </div>
-            <div class="col">
+        <div class="row">            
+            <div class="col-12">
                 <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
-                  <label for="search">Buscar en el catálogo:</label>
-                
-                    <br>
-                  <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
-                  <button class="btn btn-secondary" type="submit">Buscar</button>
+                  <div class="input-group">
+                  <label for="search" class="input-group-text">Buscar en el catálogo: </label>
+                  <input class="form-control" type="text" name="q" id="search" value="{{ query }}">
+                  <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                  </div>
             </form>  
             </div>
         </div>

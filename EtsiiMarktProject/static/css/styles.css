@@ -64,6 +64,12 @@ textarea {
     cursor: pointer;
 }
 
+button.btn.btn-outline-secondary {
+    background-color: var(--secondary-color);
+    border: none;
+    color: var(--bs-black);
+}
+
 .btn.btn-danger{
     color: var(--bs-black);
     padding: 10px 10px;

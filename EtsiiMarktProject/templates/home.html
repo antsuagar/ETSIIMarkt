@@ -38,87 +38,33 @@
     </ul>
     {% endif %}
 
+    {% block content %}
     <!-- Tercera fila categorías -->
     <div class="categorias mb-3">
         <h2 class="text-center">CATEGORÍAS</h2>  
 
         <div class="row">
+            {% for categoria in categorias %}  
+
             <div class="col-2">
-                <div class="card">
-                    <div class="bg-body-secondary text-center">
-                        <i class="bi bi-tv"></i>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">Televisión</p>
-                    </div>
-                  </div>        
+                <a href="/busqueda/?categoria={{ categoria.nombre }}">
+                    <div class="card">
+                        <div class="bg-body-secondary text-center">
+                            <i class="bi bi-tv"></i>
+                        </div>
+                        <div class="card-body">
+                        <p class="card-text">{{ categoria.nombre }}</p>
+                        </div>
+                    </div>    
+                </a>    
             </div>
-            <div class="col-2">
-                <div class="card">
-                    <div class="bg-body-secondary text-center">
-                        <i class="bi bi-pc-display"></i>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">Informática</p>
-                    </div>
-                  </div>        
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <div class="bg-body-secondary text-center">
-                        <i class="bi bi-vr"></i>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">Electrodomésticos</p>
-                    </div>
-                  </div>        
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <div class="bg-body-secondary text-center">
-                        <i class="bi bi-controller"></i>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">Juegos y Consolas</p>
-                    </div>
-                  </div>        
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <div class="bg-body-secondary text-center">
-                        <i class="bi bi-phone"></i>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">Telefonía</p>
-                    </div>
-                  </div>        
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <div class="bg-body-secondary text-center">
-                        <i class="bi bi-camera2"></i>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text">Fotografía</p>
-                    </div>
-                  </div>        
-            </div>
+           
+            {% endfor %}
         </div>        
     </div>
 
-    <!-- Segunda fila con slider 
-    <div class=" mb-3">
-        
-        <div class="row">
-            <div class="col-12">
-                
-                <img src="/media/images/fondo-gris.png" class="img-fluid" >
-            </div>
-        </div>
-    </div>-->
-
     <!-- Tercera fila contenido -->
-    {% block content %}
+    
     <div class="mt-5 mb-3">
         <h2 class="text-center"><span class="text-dark">PRODUCTOS</span> DESTACADOS</h2> 
     <div class="row">
