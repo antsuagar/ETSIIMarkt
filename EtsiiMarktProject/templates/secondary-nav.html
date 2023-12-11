@@ -9,9 +9,11 @@
         </a>
         </li>
         <li class="mb-1">
+          <a href="/catalogo">
           <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
             Productos
           </button>
+          </a>
           <div class="collapse show" id="home-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
               <li><a href="/busqueda/?categoria=Televisi%C3%B3n" class="link-dark rounded">Television</a></li>
@@ -24,18 +26,22 @@
           </div>
         </li>
         <li class="mb-1">
-          <a href="/pedidos">
-          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-            Pedidos
-          </button>
-        </a>
-        </li>
-        <li class="mb-1">
           <a href="/nosotros">
           <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
             Quienes somos
           </button>
         </a>
+        </li>
+        <li class="mb-1">
+          <a href="/perfil"><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+            Área de clientes
+          </button></a>
+          <div class="collapse show" id="home-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="/seguimiento" class="link-dark rounded">Mis pedidos</a></li>
+              {% if user.is_authenticated %}<li><a href="/pedido/reclamaciones_cliente" class="link-dark rounded">Mis reclamaciones</a></li> {% endif %}
+            </ul>
+          </div>
         </li>
       </ul>
     </div>    
