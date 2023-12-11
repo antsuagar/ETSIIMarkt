@@ -8,7 +8,7 @@ from productos.models import Producto, Categoria
 def index(request):    
     productos = Producto.objects.all()
     categorias = Categoria.objects.all()
-    return render(request, 'home.html', {'user': user, 'productos': productos, 'categorias': categorias})
+    return render(request, 'home.html', {'productos': productos, 'categorias': categorias})
 
 def header(request):
     user = request.user
