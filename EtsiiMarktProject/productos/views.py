@@ -73,7 +73,7 @@ def detalle(request, producto_id):
         incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
         nuevo_pedido.save()
         incluir_producto.save()     
-        messages.success(request, 'El producto se ha añadido al carrito de compra')
+        
     else:  
         if 'anonimo_id' not in request.session:
             request.session['anonimo_id'] = str(uuid.uuid4())
@@ -82,7 +82,6 @@ def detalle(request, producto_id):
             nuevo_pedido.save()
             incluir_producto= ProductoPedido(pedido=nuevo_pedido, producto=producto, cantidad=int(cantidadPedida))
             incluir_producto.save()
-            messages.success(request, 'El producto se ha añadido al carrito de compra') 
                
         else:
             anonimo_id = request.session['anonimo_id']
@@ -90,9 +89,10 @@ def detalle(request, producto_id):
             incluir_producto, createdP= ProductoPedido.objects.get_or_create(pedido=cesta,producto=producto)
             incluir_producto.cantidad = incluir_producto.cantidad+int(cantidadPedida)
             incluir_producto.save() 
-            messages.success(request, 'El producto se ha añadido al carrito de compra')
-
     
+    producto.cantidad = producto.cantidad-int(cantidadPedida)
+    producto.save()
+    messages.success(request, 'El producto se ha añadido al carrito de compra')
     return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones, 'agotado': producto.producto_agotado})
 
 def agregar_opinion(request, producto_id):
