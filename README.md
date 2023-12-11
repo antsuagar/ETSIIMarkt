@@ -26,7 +26,13 @@ Una vez ahí podeis hacer varias cosas:
 
 ## **DATOS TARJETA PASARELA DE PAGO**
 
-Tarjeta exitosa: 4242424242424242 cualquier fecha, CVC y CP
-Tarjeta error: 4000000000000002 cualquier fecha, CVC y CP (error genérico)
-Tarjeta error: 4000000000009995 (fondos insuficientes)
-Enlace tarjetas de prueba: https://stripe.com/docs/testing?testing-method=card-numbers#visa
+- Tarjeta exitosa: 4242424242424242 cualquier fecha, CVC y CP
+- Tarjeta error: 4000000000000002 cualquier fecha, CVC y CP (error genérico)
+- Tarjeta error: 4000000000009995 (fondos insuficientes)
+- Enlace tarjetas de prueba: https://stripe.com/docs/testing?testing-method=card-numbers#visa
+
+## **ARRANCAR SONARQUBE Y SONAR SCANNER**
+
+- Abrir cmd de windows, ir carpeta c:\sonarqube\bin\windows-x86-64 y ejecutar StartSonar.bat para lanzar SonarQube.
+- En otra cmd ir a la carpeta del proyecto EtsiiMarktProject y ejecutar el comando: sonar-scanner -Dsonar.projectKey=EtsiiMarktProject -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true
+- Abrir en el navegador la URL http://localhost:9000
