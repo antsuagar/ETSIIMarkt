@@ -1,7 +1,11 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+from clientes.models import DireccionCliente
+from productos.models import Producto
+
+from pedidos.models import DireccionEnvio, Pedido, ProductoPedido
+from .forms import CustomUserChangeForm, CustomUserCreationForm, UserDireccionForm
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from .forms import UserOrEmailAuthenticationForm
@@ -62,3 +66,37 @@ def modificar_datos_usuario(request):
         form = CustomUserChangeForm(instance=request.user)
     
     return render(request, 'clientes/modificar_perfil.html', {'form': form})
+
+@login_required
+def logout_personalizado(request):
+    user=request.user
+    pedido, created = Pedido.objects.get_or_create(user=user,completado=False)
+    items = pedido.get_lista_de_productos_carrito() 
+    if len(items) != 0:
+        for item in items:
+            producto, createdP= Producto.objects.get_or_create(nombre=item.producto.nombre)
+            producto.cantidad = item.cantidad+producto.cantidad
+            item.delete()  
+            producto.save()
+    return redirect('/logout')  
+
+@login_required
+def editar_direccion_envio(request):
+    # Obtener la instancia de DireccionEnvio del usuario actual (asumiendo que tienes algún método para obtener al usuario actual)
+    usuario_actual = request.user  # Obtener el usuario actual, puedes usar tu método de autenticación aquí
+
+    # Buscar la dirección de envío del usuario actual o crear una nueva si no existe
+    try:
+        direccion_envio = DireccionCliente.objects.get(user=usuario_actual)  # Ajusta esto según tu modelo de cliente
+    except DireccionCliente.DoesNotExist:
+        direccion_envio = DireccionCliente(user=usuario_actual)
+    
+    if request.method == 'POST':
+        form = UserDireccionForm(request.POST, instance=direccion_envio)
+        if form.is_valid():
+            form.save()
+            return redirect('/perfil')  # Reemplaza 'ruta_de_redireccion' con la URL a donde quieres redirigir después de guardar la dirección
+    else:
+        form = UserDireccionForm(instance=direccion_envio)
+    
+    return render(request, 'clientes/direccion_envio.html', {'form': form, 'user': usuario_actual})

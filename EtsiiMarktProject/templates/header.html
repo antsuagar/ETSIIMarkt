@@ -23,11 +23,17 @@
                             <a class="nav-link" href="/catalogo">Productos</a>
                           </li>                                              
                           <li class="nav-item">
-                            <a class="nav-link" href="/nosotros">Quienes somos</a>
-                          </li> 
+                            <a class="nav-link" href="/nosotros">Quiénes somos</a>
+                          </li>
+                          {% if user.is_authenticated %}
                           <li class="nav-item">
-                            <a class="nav-link" href="/perfil">Área de Clientes</a>
+                            <a class="nav-link" href="/perfil">Área de clientes</a>
+                          </li>                       
+                          {% else %}
+                          <li class="nav-item">
+                            <a class="nav-link" href="/seguimiento">Mis pedidos</a>
                           </li> 
+                          {% endif %} 
                         </ul>
                         
                       </div>
@@ -44,7 +50,7 @@
                   </li> 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/logout"><i class="bi bi-box-arrow-left"></i></a>
+                      <a class="nav-link active" aria-current="page" href="/logout_personalizado"><i class="bi bi-box-arrow-left"></i></a>
                     </li>
                       <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/perfil"><i class="bi bi-person-circle"></i> {{ user.username }}</a>

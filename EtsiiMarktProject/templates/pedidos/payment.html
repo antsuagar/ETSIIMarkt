@@ -10,8 +10,8 @@
     <form action="{% url 'procesar_pedido' %}" method="post" id="payment-form" class="border p-3">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="cantidad" class="form-label">Cantidad a cobrar:</label>
-            <input type="number" name="cantidad" value="{{pedido.get_total_carrito}}" readonly class="form-control">
+            <label for="cantidad" class="form-label">Cantidad a cobrar: {{pedido.get_total_carrito}}€</label>
+            <input type="hidden" name="cantidad" value="{{pedido.get_total_carrito}}" readonly class="form-control">
         </div>
        
         <label for="card-element" class="form-label">Información de la tarjeta de crédito:</label>

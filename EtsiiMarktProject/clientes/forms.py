@@ -4,6 +4,9 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 import pdb
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from clientes.models import DireccionCliente
+
+from pedidos.models import DireccionEnvio
 
 class CustomUserCreationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
@@ -58,3 +61,8 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User  
         fields = ['first_name', 'last_name', 'email']  
+
+class UserDireccionForm(forms.ModelForm):
+    class Meta:
+        model = DireccionCliente
+        fields = ['direccion', 'ciudad', 'postal']

@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
+    icono = models.CharField(max_length=100, null=True)
 
     @classmethod
     def get_default_categoria(cls):
         categoria, created = cls.objects.get_or_create(
-            nombre='Electrodomestico', 
+            nombre='Todos los electrodomésticos', 
         )
         return categoria.pk
     
@@ -24,7 +25,7 @@ class Fabricante(models.Model):
     @classmethod
     def get_default_fabricante(cls):
         fabricante, created = cls.objects.get_or_create(
-            nombre='Fabricante', 
+            nombre='Todos los fabricantes', 
         )
         return fabricante.pk
     

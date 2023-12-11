@@ -117,6 +117,7 @@ def procesar_pedido(request):
     
     elif forma_pago=='pasarela' and pagado=='tarjeta':
         cantidad = request.POST.get('cantidad','0')
+        cantidad = cantidad.replace(',', '.')
         amount = float(cantidad)*100
         token = request.POST.get('stripeToken')
 
@@ -193,11 +194,13 @@ def pedidos_usuario(request):
     if request.user.is_authenticated:
         user=request.user
         pedidos = Pedido.objects.all().filter(Q(user=user) & Q(completado=True))
+        if len(pedidos)==0:
+            messages.error(request, 'Aún no ha realizado ningún pedido')
       
     else:
         id_pedido= request.GET.get('idPedido','')
         if id_pedido=='':
-            messages.success(request, 'Para poder hacer seguimiento de sus pedidos, registrese o indique número de su pedido')
+            messages.success(request, 'Para poder hacer seguimiento de sus pedidos, registrese o indique número de su pedido')            
             return render(request, 'envios/seguimiento.html')
         pedido = get_object_or_404(Pedido, id=id_pedido)
         pedidos =[pedido]
