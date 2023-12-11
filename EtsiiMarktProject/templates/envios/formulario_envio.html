@@ -23,13 +23,29 @@
         {% csrf_token %}
 
         Seleccione el método de pago:
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="formaPago">
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="formaPago" value = "{{formaPago}}">
+            {% if formaPago == 'pasarela' %}
             <option value="contrarrempolso">Contrareembolso</option>
+            <option value="pasarela" selected>Pago online con tarjeta de crédito</option>
+            {% else %}
+            <option value="contrarrempolso" selected>Contrareembolso</option>
             <option value="pasarela">Pago online con tarjeta de crédito</option>
+            {% endif %}
           </select>
         <br>
+        {% if user.is_authenticated %}
+        <input type="hidden" name="destinatario" required value = "{{destinatario}}"></p>
+        {% else %}
+        <p><label for="destinatario">Destinatario:</label>
+        <input type="text" name="destinatario" required value = "{{destinatario}}"></p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <input type="hidden" name="email" required value = "{{email}}"></p>
+        {% else %}
         <p><label for="email">Email:</label>
-        <input type="email" name="email" required value = "{{email}}"></p>
+            <input type="email" name="email" required value = "{{email}}"></p>
+        {% endif %}
 
         <p><label for="direccion">Dirección de Envío:</label>
         <input type="text" name="direccion" required value = "{{direccion}}"></p>

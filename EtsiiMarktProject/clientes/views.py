@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from clientes.models import DireccionCliente
 from productos.models import Producto
@@ -45,8 +45,12 @@ class IniciarSesionView(FormView):
         user = authenticate(username=username, password=password)
 
         if user is not None:
-            login(self.request, user)
-            return redirect(self.get_success_url())
+            if user.is_superuser:
+                login(self.request, user)
+                return redirect('/admin')
+            else:
+                login(self.request, user)
+                return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
@@ -98,7 +102,3 @@ def editar_direccion_envio(request):
         form = UserDireccionForm(instance=direccion_envio)
     
     return render(request, 'clientes/direccion_envio.html', {'form': form, 'user': usuario_actual})
-
-@login_required
-def editar_mi_tarjeta(request):
-    return render(request, 'clientes/tarjeta.html')

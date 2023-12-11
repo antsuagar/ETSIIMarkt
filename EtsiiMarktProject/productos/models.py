@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
-    icono = models.CharField(max_length=100, null=True)
 
     @classmethod
     def get_default_categoria(cls):

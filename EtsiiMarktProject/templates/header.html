@@ -22,9 +22,6 @@
                           <li class="nav-item">
                             <a class="nav-link" href="/catalogo">Productos</a>
                           </li>                                              
-                          <li class="nav-item">
-                            <a class="nav-link" href="/nosotros">Quiénes somos</a>
-                          </li>
                           {% if user.is_authenticated %}
                           <li class="nav-item">
                             <a class="nav-link" href="/perfil">Área de clientes</a>
@@ -43,11 +40,8 @@
             <div class="col-4">                
                 <ul class="nav users" style="float: right">
                   <li class="nav-item">
-                    <a href="/productos/carrito">
-                      <i class="bi bi-basket"></i>
-                      <span class="badge rounded-pill badge-notification bg-danger">{{ numero_carrito }}</span>
-                    </a>
-                  </li> 
+                    <a class="nav-link" href="/productos/carrito"><i class="bi bi-basket"></i></a>
+                  </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="/logout_personalizado"><i class="bi bi-box-arrow-left"></i></a>

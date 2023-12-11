@@ -106,7 +106,9 @@ def formulario_envio(request, pedido_id):
         direccion = direccionCliente.direccion
         ciudad = direccionCliente.ciudad
         postal = direccionCliente.postal
-        return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id, 'email': email, 'postal': postal, 'direccion': direccion, 'ciudad': ciudad})
+        formaPago = direccionCliente.formaPago
+        destinatario = user.first_name + " " + user.last_name
+        return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id, 'email': email, 'postal': postal, 'direccion': direccion, 'ciudad': ciudad, 'formaPago': formaPago, 'destinatario': destinatario})
     else:
         return render(request, 'envios/formulario_envio.html', {'pedido_id':pedido_id})
 
@@ -123,10 +125,11 @@ def procesar_pedido(request):
     pedido_id = request.POST.get('pedido_id')
     forma_pago = request.POST.get('formaPago')
     pagado = request.POST.get('pagado','')
+    destinatario = request.POST.get('destinatario')
     pedido = get_object_or_404(Pedido,pk=pedido_id)
 
     if forma_pago=='pasarela' and pagado=='':
-        return render(request, 'pedidos/payment.html', {'pedido':pedido, 'email':email, 'direccion': direccion, 'ciudad':ciudad, 'postal':codigo_postal,'formaPago':forma_pago}) 
+        return render(request, 'pedidos/payment.html', {'pedido':pedido, 'email':email, 'direccion': direccion, 'ciudad':ciudad, 'postal':codigo_postal,'formaPago':forma_pago, 'destinatario': destinatario}) 
     
     elif forma_pago=='pasarela' and pagado=='tarjeta':
         cantidad = request.POST.get('cantidad','0')
@@ -175,7 +178,7 @@ def procesar_pedido(request):
     try:
         send_mail(
         "Su pedido en Etsii Markt esta en marcha",
-        "Gracias por comprar con nosotros, le informamos que su pedido de {0} con un total de {1} euros esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido en nuestra página web introduciendo el número de su pedido: {5} en el apartado de pedidos realizados o estando registrado en nuestra web".format(factura, total, direccion, ciudad, codigo_postal, id_pedido),
+        "Gracias por comprar con nosotros, {6}. Le informamos que su pedido de {0} con un total de {1} euros esta en marcha y se enviará a la dirección proporcionada: {2} en {3}, {4}. Podra rastrear su pedido en nuestra página web introduciendo el número de su pedido: {5} en el apartado de Mis pedidos o estando registrado en nuestra web".format(factura, total, direccion, ciudad, codigo_postal, id_pedido, destinatario),
         "etsiiMarktProyect@outlook.es",
         emails,
         fail_silently=False,
@@ -197,7 +200,7 @@ def procesar_pedido(request):
     pedido.save()
 
 
-    messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente, se ha enviado un correo con el seguimiento y puede hacer su seguimiento en la pestañas Pedidos realizados'.format(id_pedido))
+    messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente. Se ha enviado un correo a la dirección indicada con el id de seguimiento y puede hacer el seguimiento de su seguimiento en la pestaña Pedidos realizados'.format(id_pedido))
     
  
     return render(request, 'envios/resultado_envio.html')

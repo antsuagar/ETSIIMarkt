@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="container mt-4">
-    <h2 class="text-center">CARRITO DE LA <span class="text-dark">COMPRA</span></h2>
+    <h2 class="text-center">CARRITO DE LA COMPRA</h2>
 
     <table class="table">
         <thead>
@@ -54,6 +54,9 @@
             <a href="{% url 'formulario_envio' pedido.id%}" class="btn btn-sm btn-primary">Tramitar Pedido</a>
         {% endif %}
         
+    </div>
+    <div class="mt-3">
+        <h4>Envío estandar: 15€. Gastos de envío gratuitos en pedidos superiores a 200€.</h4>       
     </div>
 </div>
 {% endblock %}

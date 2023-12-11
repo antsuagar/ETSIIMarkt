@@ -14,6 +14,7 @@ class EstadoProducto(Enum):
     
 class Pedido(models.Model):
     user=models.ForeignKey(User,on_delete=models.SET_NULL, null=True, blank=True)
+    destinatario=models.CharField(max_length=1000, null=True, blank=True)
     fecha_pedido=models.DateTimeField(auto_now_add=True)
     completado=models.BooleanField(default=False)
     id_transaccion=models.CharField(max_length=100, null=True)
@@ -24,6 +25,8 @@ class Pedido(models.Model):
     def get_total_carrito(self):
         productopedidos=self.productopedido_set.all()
         total=sum([p.get_total for p in productopedidos])
+        if total<200 and len(productopedidos)>0:
+            total=total+15
         return total
     
     @property

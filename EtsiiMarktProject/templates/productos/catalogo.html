@@ -3,7 +3,7 @@
 {% block title %}Catálogo de Productos{% endblock %}
 
 {% block content %}
-<h2 class="text-center">CATÁLOGO DE <span class="text-dark">PRODUCTOS</span></h2>
+<h2 class="text-center">CATÁLOGO DE PRODUCTOS</h2>
 
 <div class="border mb-2 busqueda p-3">
 <form role="search" method="get" action="{% url 'catalogo2' %}">
@@ -67,6 +67,9 @@
               <div class="card-body">
               <h5 class="card-title">{{ producto.nombre }}</h5>
               <p class="card-text">{{ producto.precio }} €</p>
+              {% if producto.producto_agotado%}
+              <b class="card-text" style="color:red;">AGOTADO</b>
+              {% endif %}
               <a href="{% url 'detalle' producto.id %}" class="btn btn-primary">Ver producto</a>
               </div>
           </div>
