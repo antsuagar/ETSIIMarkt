@@ -76,7 +76,7 @@ class Producto(models.Model):
 class Opinion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
-    cuerpo = models.CharField(max_length=500)
+    tu_opinion = models.CharField(max_length=500)
 
     class Meta:
         ordering = ['producto']

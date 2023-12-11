@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 #from clientes.views import RegistroClienteView
-from clientes.views import IniciarSesionView, editar_direccion_envio, logout_personalizado, modificar_datos_usuario, perfil, register
+from clientes.views import IniciarSesionView, editar_direccion_envio, editar_mi_tarjeta, logout_personalizado, modificar_datos_usuario, perfil, register
 from django.contrib.auth.views import LogoutView
 from core.views import index, nosotros, devoluciones
 from productos.views import catalogo, catalogo2
@@ -51,6 +51,7 @@ urlpatterns = [
     path('devoluciones', devoluciones, name='devoluciones'),
     path('logout_personalizado', logout_personalizado, name='logout_personalizado'),
     path('clientes/direccion_envio/', editar_direccion_envio, name='editar_direccion_envio'),
+    path('clientes/tarjeta/', editar_mi_tarjeta, name='editar_mi_tarjeta'),
 ]
     
 

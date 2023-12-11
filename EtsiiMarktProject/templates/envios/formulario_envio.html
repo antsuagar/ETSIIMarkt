@@ -22,8 +22,8 @@
     <form method="post" action="{% url 'procesar_pedido' %}">
         {% csrf_token %}
 
+        Seleccione el método de pago:
         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="formaPago">
-            <option selected>Seleccione el método de pago</option>
             <option value="contrarrempolso">Contrareembolso</option>
             <option value="pasarela">Pago online con tarjeta de crédito</option>
           </select>

@@ -98,3 +98,7 @@ def editar_direccion_envio(request):
         form = UserDireccionForm(instance=direccion_envio)
     
     return render(request, 'clientes/direccion_envio.html', {'form': form, 'user': usuario_actual})
+
+@login_required
+def editar_mi_tarjeta(request):
+    return render(request, 'clientes/tarjeta.html')
