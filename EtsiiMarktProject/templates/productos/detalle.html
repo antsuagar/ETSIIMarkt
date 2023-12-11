@@ -34,7 +34,7 @@
             <li class="list-group-item"><h3>Fabricante:</h3> {{ producto.fabricante }}</li>
             <li class="list-group-item"><h3>Precio:</h3> {{ producto.precio }}€</li>
             <li class="list-group-item"><h3>Descripción:</h3> {{ producto.descripcion }}</li>
-            <li class="list-group-item"><h3>Cantidad disponible:</h3> {{ producto.cantidad }} unidades</li>
+            <li class="list-group-item"><h3>Cantidad disponible:</h3> {{ producto.cantidad }} unidades {% if agotado %} PRODUCTO AGOTADO {% endif %}</li>
           </ul>
         
     </div>

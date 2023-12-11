@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% block title %}Carrito de la compra{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Carrito de Compras</h1>
+    <h1 class="mb-4">Carrito de la compra</h1>
 
     <table class="table">
         <thead>
@@ -11,6 +13,7 @@
                 <th scope="col">Precio unitario</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Montaje a domicilio</th>
+                <th scope="col"></th>
                 <th scope="col">Subtotal</th>
                 <th scope="col">Acciones</th>
             </tr>
@@ -27,10 +30,13 @@
                     </td>
                      <td>  
                         <input type="checkbox" name="montar_domicilio" {% if item.montar_domicilio %} checked {% endif %}>
+                    </td>
+                    <td> 
                         <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
+                    </td>
                     </form>
                 </td>
-                <td>${{ item.get_total }}</td>
+                <td>{{ item.get_total }}€</td>
                 <td>
                     <a href="{% url 'eliminar' item.producto.id %}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
@@ -42,7 +48,7 @@
     <div class="mt-3">
         <h4>Total a pagar: {{ pedido.get_total_carrito }} €</h4>
         {% if pedido.get_total_carrito > 0 %}
-            <a href="{% url 'formulario_envio' pedido.id%}" class="btn btn-sm btn-primary">Terminar Pedido</a>
+            <a href="{% url 'formulario_envio' pedido.id%}" class="btn btn-sm btn-primary">Tramitar Pedido</a>
         {% endif %}
         
     </div>
