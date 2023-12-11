@@ -39,7 +39,10 @@
             <div class="col-4">                
                 <ul class="nav users" style="float: right">
                   <li class="nav-item">
-                    <a class="nav-link" href="/productos/carrito"><i class="bi bi-basket"></i></a>
+                    <a href="/productos/carrito">
+                      <i class="bi bi-basket"></i>
+                      <span class="badge rounded-pill badge-notification bg-danger">{{ numero_carrito }}</span>
+                    </a>
                   </li> 
                     {% if user.is_authenticated %}
                     <li class="nav-item">

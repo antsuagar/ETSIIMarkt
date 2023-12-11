@@ -93,7 +93,7 @@ def detalle(request, producto_id):
             messages.success(request, 'El producto se ha añadido al carrito de compra')
 
     
-    return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones})
+    return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones, 'agotado': producto.producto_agotado})
 
 def agregar_opinion(request, producto_id):
     producto = Producto.objects.get(pk=producto_id)

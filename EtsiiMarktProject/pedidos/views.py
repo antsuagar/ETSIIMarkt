@@ -18,7 +18,6 @@ from django.utils import translation
 from django.contrib.auth.decorators import login_required
 from .models import Reclamacion
 
-# Create your views here.
 def carrito(request):
 
     if request.user.is_authenticated:
