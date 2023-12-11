@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Envío</title>
+</head>
+<body>
+    <h2>Formulario de Envío</h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="post" action="{% url 'procesar_pedido' %}">
+        {% csrf_token %}
+        
+        <select name="formaPago">
+            <option value="contrarrempolso">Pagar a contrareembolso</option>
+            <option value="pasarela">Pagar online</option>
+          </select>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        <br>
+        <label for="direccion">Dirección de Envío:</label>
+        <input type="text" name="direccion" required>
+        <br>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" name="ciudad" required>
+        <br>
+        <label for="postal">Código postal:</label>
+        <input type="number" name="postal" required>
+        <br>
+        <input name="pedido_id" type="hidden" value="{{pedido_id}}" />
+         
+
+        <button type="submit">Completar Pedido</button>
+    </form>
+
+
+</body>
+
+{% endblock %}

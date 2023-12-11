@@ -1,9 +1,9 @@
   <!-- Primera fila con logo y menú principal -->
-   
+<link rel="icon" type="image/png" href="/media/images/favicon.png"/>
     <div class="container">
       <div class="row bg-dark text-light p-2">
-        <div class="col-6"><i class="bi bi-facebook"></i> <i class="bi bi-twitter"></i> <i class="bi bi-instagram"></i></div>   
-        <div class="col-6" style="text-align: right">Contacto: <i class="bi bi-telephone"></i> 900 123 456 &nbsp;&nbsp;&nbsp;<i class="bi bi-envelope"></i> contacto@etsiimark.com</div>
+        <div class="col-6"><i class="bi bi-facebook"></i> <i class="bi bi-twitter-x"></i> <i class="bi bi-instagram"></i></div>   
+        <div class="col-6" style="text-align: right">Contacto: <i class="bi bi-telephone"></i> 	954 556 973 &nbsp;&nbsp;&nbsp;<i class="bi bi-envelope"></i> etsiimarktproyect@outlook.com</div>
     </div>
         <div class="row ">            
             <div class="col-8">
@@ -20,10 +20,16 @@
                             <a class="nav-link active" aria-current="home" href="/">Inicio</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="/servicios">Servicios</a>
+                            <a class="nav-link" href="/seguimiento">Pedidos realizados</a>
                           </li>                          
                           <li class="nav-item">
                             <a class="nav-link" href="/catalogo">Catálogo de productos</a>
+                          </li>
+                          {% if user.is_authenticated %}
+                              <li class="nav-item">
+                                  <a class="nav-link" href="{% url 'reclamaciones_cliente' %}">Mis reclamaciones</a>
+                              </li>
+                          {% endif %}
                           </li> 
                           <li class="nav-item">
                             <a class="nav-link" href="/nosotros">Quienes somos</a>
@@ -40,7 +46,10 @@
             <div class="col-4">                
                 <ul class="nav users" style="float: right">
                   <li class="nav-item">
-                    <a class="nav-link" href="/productos/carrito"><i class="bi bi-basket"></i></a>
+                    <a href="/productos/carrito">
+                      <i class="bi bi-basket"></i>
+                      <span class="badge rounded-pill badge-notification bg-danger">{{ numero_carrito }}</span>
+                    </a>
                   </li> 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -60,14 +69,28 @@
             </div>
         </div>
         <div class="row">
-           
-            <div class="col-12">
+            <div class="col-2">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Todas las categorías
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
+                      <li><a class="dropdown-item" href="#">Fotografía</a></li>
+                      <li><a class="dropdown-item" href="#">Informática</a></li>
+                      <li><a class="dropdown-item" href="#">Juegos y Consolas</a></li>
+                      <li><a class="dropdown-item" href="#">Telefonía</a></li>
+                      <li><a class="dropdown-item" href="#">Televisión</a></li>
+                    </ul>
+                  </div>
+            </div>
+            <div class="col">
                 <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
-                  <label for="search">Buscar en el catálogo:</label>
-                
-                    <br>
-                  <input class="form-control me-2" type="text" name="q" id="search" value="{{ query }}">
-                  <button class="btn btn-secondary" type="submit">BUSCAR</button>
+                  <div class="input-group">
+                  <label for="search" class="input-group-text">Buscar en el catálogo: </label>
+                  <input class="form-control" type="text" name="q" id="search" value="{{ query }}">
+                  <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                  </div>
             </form>  
             </div>
         </div>

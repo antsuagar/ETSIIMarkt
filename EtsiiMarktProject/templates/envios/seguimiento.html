@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Catálogo de Productos{% endblock %}
+
+{% block content %}
+
+<h2>PEDIDOS REALIZADOS</h2>
+
+<div class="pedidos-realizados">
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<form class="d-flex" role="search" method="get" action="{% url 'seguimiento' %}">
+    <label for="search">Introduce tu número de pedido:</label>
+      <br>
+    <input class="form-control me-2" type="text" name="idPedido" id="search">
+    <button class="btn btn-secondary" type="submit">Buscar</button>
+</form>  
+{% endif %}
+
+<div class="row">
+  {% for pedido in pedidos %}   
+      <div class="col-3">
+          <div class="card p-2">
+              <div class="card-body">
+              <h5 class="card-title">Fecha de pedido: {{ pedido.fecha_pedido|date:"d/m/Y" }}</h5>
+              <hr>
+
+            {% for item in pedido.get_lista_de_productos_carrito %}
+            <tr>
+                <p class="card-text">{{ item.producto.nombre }}</p>
+                <td class="card-text">&nbsp;&nbsp; - Unidades: {{ item.cantidad }}</td>
+                <p class="card-text">&nbsp;&nbsp; - Coste: {{ item.get_total }} €</p>
+            {% endfor %}
+            <hr>    
+            <label for="estado"></label>
+                <td>Estado: {{ pedido.get_estado }}</td>
+                <label for="total"></label>
+                <td>Coste total: {{ pedido.get_total_carrito }} €</td>
+            </tr>
+              </div>
+          </div>
+          {% if user.is_authenticated %}
+          <div class="text-center">
+            <a class="btn btn-secondary" href="{% url 'agregar_reclamacion' pedido.id %}">Agregar reclamación</a>
+          </div>
+          {% endif %}
+      </div>
+  {% endfor %}
+</div>
+</div>
+
+
+{% endblock %}

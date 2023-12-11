@@ -47,24 +47,37 @@
 </div>
 
 <div class="row">
-    {% for producto in productos %}   
-        <div class="col-3">
-            <div class="card p-2">
-                {% if producto.imagen %}
-                    <img class="card-img-top" src="{{producto.imagen.url}}" alt="{{ producto.nombre }}">
-                {% endif %}
-                <div class="card-body">
-                <h5 class="card-title">{{ producto.nombre }}</h5>
-                <p class="card-text">{{ producto.precio }} €</p>
-                <a href="{% url 'detalle' producto.id %}" class="btn btn-primary">Ver producto</a>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
+
+  {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+  {% for producto in productos %}   
+      <div class="col-3">
+          <div class="card p-2">
+              {% if producto.imagen %}
+                  <img class="card-img-top" src="{{producto.imagen.url}}" alt="{{ producto.nombre }}">
+              {% endif %}
+              <div class="card-body">
+              <h5 class="card-title">{{ producto.nombre }}</h5>
+              <p class="card-text">{{ producto.precio }} €</p>
+              <a href="{% url 'detalle' producto.id %}" class="btn btn-primary">Ver producto</a>
+              </div>
+          </div>
+      </div>
+  {% endfor %}
 </div>
 
 
+
 {% endblock %}
+
 
 
 

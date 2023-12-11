@@ -41,6 +41,11 @@ a {
     }
 }
 
+textarea {
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
 
 .btn.btn-primary {
     background-color: var(--secondary-color);
@@ -62,6 +67,19 @@ a {
 
 .btn.btn-secondary{
     background-color: var(--secondary-color);
+    color: var(--bs-black);
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button.btn.btn-outline-secondary {
+    background-color: var(--secondary-color);
+    border: none;
+    color: var(--bs-black);
+}
+
+.btn.btn-danger{
     color: var(--bs-black);
     padding: 10px 10px;
     border: none;

@@ -7,7 +7,20 @@
         
 <div class="row producto">
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
     <div class="col-5 ">
+            <form class="d-flex" role="cesta" method="get" action="{% url 'detalle' producto.id %}">
+                <input class="form-control me-2" type="number" name="cantidad" min="1" max="{{ producto.cantidad }}" id="cantidad" placeholder="Cantidad">
+                <br>
+                <button class="btn btn-outline-success" type="submit">Añadir al carrito</button>
+                </form>
         {% load static %}
         <a href="#">
             {% if producto.imagen %}
@@ -21,15 +34,29 @@
             <li class="list-group-item"><h3>Fabricante:</h3> {{ producto.fabricante }}</li>
             <li class="list-group-item"><h3>Precio:</h3> {{ producto.precio }}€</li>
             <li class="list-group-item"><h3>Descripción:</h3> {{ producto.descripcion }}</li>
-            <li class="list-group-item"><h3>Cantidad disponible:</h3> {{ producto.cantidad }} unidades</li>
+            <li class="list-group-item"><h3>Cantidad disponible:</h3> {{ producto.cantidad }} unidades {% if agotado %} PRODUCTO AGOTADO {% endif %}</li>
           </ul>
         
     </div>
-    
+
 
 </div>
-       
-       
+<div class="row opiniones">
+    <h2>Opiniones</h2>
+    <ul>
+        {% for opinion in opiniones %}
+            <li>
+                <strong>{{ opinion.user.username }}</strong>: {{ opinion.cuerpo }}
+            </li>
+        {% empty %}
+             <li>No hay opiniones aún.</li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+        <a class="btn btn-secondary" href="{% url 'agregar_opinion' producto.id %}">Agregar opinión</a>
+    {% endif %}
+</div>
+
 
 
 {% endblock %}

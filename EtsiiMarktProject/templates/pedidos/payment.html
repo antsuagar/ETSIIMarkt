@@ -7,11 +7,11 @@
 <!-- procesar_pago.html -->
 <h2>PASARELA DE PAGO</h2>
 
-    <form action="{% url 'procesar_pago' %}" method="post" id="payment-form" class="border p-3">
+    <form action="{% url 'procesar_pedido' %}" method="post" id="payment-form" class="border p-3">
         {% csrf_token %}
         <div class="mb-3">
             <label for="cantidad" class="form-label">Cantidad a cobrar:</label>
-            <input type="number" name="cantidad" required class="form-control">
+            <input type="number" name="cantidad" value="{{pedido.get_total_carrito}}" readonly class="form-control">
         </div>
        
         <label for="card-element" class="form-label">Información de la tarjeta de crédito:</label>
@@ -23,6 +23,13 @@
 
         <!-- Un campo oculto para enviar el token de Stripe -->
         <input type="hidden" name="stripeToken" id="stripeToken">
+        <input name="pedido_id" type="hidden" value="{{pedido.id}}" /> 
+        <input type="hidden" name="email"  value="{{email}}" /> 
+        <input type="hidden" name="direccion"  value="{{direccion}}" /> 
+        <input type="hidden" name="ciudad"  value="{{ciudad}}" /> 
+        <input type="hidden" name="postal" value="{{postal}}" />
+        <input type="hidden" name="formaPago" value="{{formaPago}}" />
+        <input type="hidden" name="pagado" value="tarjeta" />
 
         <button type="submit" class="btn btn-secondary">Pagar</button>
     </form>
