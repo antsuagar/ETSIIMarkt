@@ -22,10 +22,12 @@ body {
 h2 {
     color: var(--primary-color);
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 h3{
     color: var(--primary-color) !important;
+    font-size: 1.2rem;
 }
 
 h4{
@@ -162,4 +164,13 @@ nav.bg-body-tertiary {
     color: #dc3545;  /* Color de error de Bootstrap por defecto */
     font-size: 14px;
     margin-top: 5px;
+}
+
+
+/********** OPINIONES *******************/
+.opiniones .list-group-item.active{
+    background-color: var(--bs-gray-300);
+    border: none;
+    color: var(--bs-black);
+    font-weight: 600;
 }

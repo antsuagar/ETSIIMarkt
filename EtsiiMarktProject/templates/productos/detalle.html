@@ -5,29 +5,7 @@
 {% block content %}
 <h2>{{ producto.nombre }}</h2>  
         
-<div class="row producto">
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    
-    <div class="col-5 ">
-            {% if producto.cantidad > 0 %}
-                <form class="d-flex" role="cesta" method="get" action="{% url 'detalle' producto.id %}">
-                    <input class="form-control me-2" type="number" name="cantidad" min="1" max="{{ producto.cantidad }}" id="cantidad" placeholder="Cantidad">
-                    <br>
-                    <button class="btn btn-outline-success" type="submit">Añadir al carrito</button>
-                    </form>
-            {% endif %}
-        {% load static %}
-            {% if producto.imagen %}
-                <img src="{{producto.imagen.url}}" class="img-fluid">
-            {% endif %}
-    </div>
+<div class="row producto mb-3">
     <div class="col-7">
         <ul class="list-group">
             <li class="list-group-item"><h3>Categoría:</h3> {{ producto.categoria }}</li>
@@ -35,28 +13,45 @@
             <li class="list-group-item"><h3>Precio:</h3> {{ producto.precio }}€</li>
             <li class="list-group-item"><h3>Descripción:</h3> {{ producto.descripcion }}</li>
             <li class="list-group-item"><h3>Cantidad disponible:</h3>{% if agotado %} Lo sentimos este producto esta agotado {% else %} {{ producto.cantidad }} unidades  {% endif %}</li>
-          </ul>
-        
+          </ul>        
     </div>
+    <div class="col-5 ">
+        <form class="mb-3" role="cesta" method="get" action="{% url 'detalle' producto.id %}">
+            <div class="input-group">
+                <input class="form-control" type="number" name="cantidad" min="1" max="{{ producto.cantidad }}" id="cantidad" placeholder="Cantidad">
+                <button class="btn btn-outline-secondary" type="submit">Añadir al carrito</button>
+            </div>
+        </form>
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% load static %}
+    <a href="{{producto.imagen.url}}" target="_blank">
+        {% if producto.imagen %}
+            <img src="{{producto.imagen.url}}" class="img-fluid">
+        {% endif %}
+    </a>
+</div>
 
 
 </div>
 <div class="row opiniones">
-    <h2>Opiniones</h2>
-    <ul>
+    <div class="col-12">
+    <ul class="list-group mb-3">
+        <li class="list-group-item active" aria-current="true">OPINIONES</li>
         {% for opinion in opiniones %}
-            <li>
-                <strong>{{ opinion.user.username }}</strong>: {{ opinion.cuerpo }}
-            </li>
+        <li class="list-group-item"><strong>{{ opinion.user.username }}</strong>: {{ opinion.cuerpo }}</li>
         {% empty %}
-             <li>No hay opiniones aún.</li>
+        <li class="list-group-item">No existen opiniones sobre este producto.</li>
         {% endfor %}
     </ul>
     {% if user.is_authenticated %}
-        <a class="btn btn-secondary" href="{% url 'agregar_opinion' producto.id %}">Agregar opinión</a>
+    <a class="btn btn-secondary col-3" href="{% url 'agregar_opinion' producto.id %}">Agregar opinión</a>
     {% endif %}
 </div>
-
-
-
+</div>
 {% endblock %}

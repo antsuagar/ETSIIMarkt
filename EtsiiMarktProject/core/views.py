@@ -8,8 +8,7 @@ from productos.models import Producto, Categoria
 
 def index(request):    
     items = list(Producto.objects.all())
-    # change 3 to how many random items you want
-    productos = random.sample(items, 4)
+    productos = Producto.objects.all().order_by('?')[:4]
     categorias = Categoria.objects.all()
     return render(request, 'home.html', {'productos': productos, 'categorias': categorias})
 

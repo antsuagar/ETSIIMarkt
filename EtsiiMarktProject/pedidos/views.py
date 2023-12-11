@@ -200,7 +200,7 @@ def procesar_pedido(request):
     messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente, se ha enviado un correo con el seguimiento y puede hacer su seguimiento en la pestañas Pedidos realizados'.format(id_pedido))
     
  
-    return render(request, 'home.html')
+    return render(request, 'envios/resultado_envio.html')
 
 def pedidos_usuario(request):
     
