@@ -30,6 +30,13 @@
                                   <a class="nav-link" href="{% url 'reclamaciones_cliente' %}">Mis reclamaciones</a>
                               </li>
                           {% endif %}
+                          </li> 
+                          <li class="nav-item">
+                            <a class="nav-link" href="/nosotros">Quienes somos</a>
+                          </li> 
+                          <li class="nav-item">
+                            <a class="nav-link" href="/perfil">Clientes</a>
+                          </li> 
                         </ul>
                         
                       </div>
@@ -61,8 +68,23 @@
                   </ul>
             </div>
         </div>
-        <div class="row">            
-            <div class="col-12">
+        <div class="row">
+            <div class="col-2">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Todas las categorías
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Electrodomésticos</a></li>
+                      <li><a class="dropdown-item" href="#">Fotografía</a></li>
+                      <li><a class="dropdown-item" href="#">Informática</a></li>
+                      <li><a class="dropdown-item" href="#">Juegos y Consolas</a></li>
+                      <li><a class="dropdown-item" href="#">Telefonía</a></li>
+                      <li><a class="dropdown-item" href="#">Televisión</a></li>
+                    </ul>
+                  </div>
+            </div>
+            <div class="col">
                 <form class="d-flex" role="search" method="get" action="{% url 'catalogo' %}">
                   <div class="input-group">
                   <label for="search" class="input-group-text">Buscar en el catálogo: </label>

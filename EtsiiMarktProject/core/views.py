@@ -34,4 +34,9 @@ def header(request):
 
     numero_carrito = len(items)
     return render(request, 'header.html', {'user': user, 'numero_carrito': numero_carrito})
-    
+
+def nosotros(request):  
+    return render(request, 'empresa/nosotros.html')
+
+def devoluciones(request):  
+    return render(request, 'empresa/devoluciones.html')

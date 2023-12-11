@@ -28,6 +28,10 @@ h3{
     color: var(--primary-color) !important;
 }
 
+h4{
+    font-size: 1rem;
+}
+
 a {
     color: var(--base0C) !important;
     text-decoration: none;
@@ -54,6 +58,11 @@ textarea {
         background-color: darken(var(--secondary-color), 10%);
     }
 */
+}
+
+.lista-footer li{
+    display: inline;
+    margin-right: 10px;
 }
 
 .btn.btn-secondary{

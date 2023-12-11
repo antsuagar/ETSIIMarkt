@@ -19,7 +19,7 @@ from django.urls import path, include
 #from clientes.views import RegistroClienteView
 from clientes.views import IniciarSesionView, modificar_datos_usuario, perfil, register
 from django.contrib.auth.views import LogoutView
-from core.views import index
+from core.views import index, nosotros, devoluciones
 from productos.views import catalogo, catalogo2
 from pedidos.views import actualizar, eliminar, formulario_envio, procesar_pedido, pedidos_usuario, error
 from pedidos.views import agregar_reclamacion, editar_reclamacion, reclamaciones_cliente, eliminar_reclamacion
@@ -47,6 +47,8 @@ urlpatterns = [
     path('pedido/<int:reclamacion_id>/editar_reclamacion/', editar_reclamacion, name='editar_reclamacion'),
     path('pedido/<int:reclamacion_id>/eliminar_reclamacion/', eliminar_reclamacion, name='eliminar_reclamacion'),
     path('pedido/reclamaciones_cliente/', reclamaciones_cliente, name='reclamaciones_cliente'),
+    path('nosotros', nosotros, name='nosotros'),
+    path('devoluciones', devoluciones, name='devoluciones'),
 ]
     
 
