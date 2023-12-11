@@ -5,10 +5,11 @@ from pedidos.models import Pedido
 from productos.models import Producto, Categoria
 
 
-def index(request):    
-    productos = Producto.objects.all()
+def index(request):
+    #Obtenemos 4 productos de forma aleatoria
+    productos_aleatorios = Producto.objects.all().order_by('?')[:4]
     categorias = Categoria.objects.all()
-    return render(request, 'home.html', {'productos': productos, 'categorias': categorias})
+    return render(request, 'home.html', {'productos': productos_aleatorios, 'categorias': categorias})
 
 def header(request):
     user = request.user

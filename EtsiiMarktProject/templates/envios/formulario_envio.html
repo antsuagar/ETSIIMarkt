@@ -8,6 +8,7 @@
 </head>
 <body>
     <h2>Formulario de Envío</h2>
+    <div class="formulario-envio border p-3">
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -19,29 +20,29 @@
     <form method="post" action="{% url 'procesar_pedido' %}">
         {% csrf_token %}
         
-        <select name="formaPago">
+        <select name="formaPago" class="form-select">
             <option value="contrarrempolso">Pagar a contrareembolso</option>
             <option value="pasarela">Pagar online</option>
           </select>
         <br>
         <label for="email">Email:</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" required class="form-control">
         <br>
         <label for="direccion">Dirección de Envío:</label>
-        <input type="text" name="direccion" required>
+        <input type="text" name="direccion" required class="form-control">
         <br>
         <label for="ciudad">Ciudad:</label>
-        <input type="text" name="ciudad" required>
+        <input type="text" name="ciudad" required class="form-control">
         <br>
         <label for="postal">Código postal:</label>
-        <input type="number" name="postal" required>
+        <input type="number" name="postal" required class="form-control">
         <br>
-        <input name="pedido_id" type="hidden" value="{{pedido_id}}" />
+        <input name="pedido_id" class="form-control" type="hidden" value="{{pedido_id}}" />
          
 
         <button type="submit">Completar Pedido</button>
     </form>
-
+</div>
 
 </body>
 
