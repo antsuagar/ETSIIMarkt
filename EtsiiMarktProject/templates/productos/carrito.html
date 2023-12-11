@@ -2,9 +2,12 @@
 
 {% block title %}Carrito de la compra{% endblock %}
 
+
+
 {% block content %}
+
 <div class="container mt-4">
-    <h1 class="mb-4">Carrito de la compra</h1>
+    <h2 class="text-center">CARRITO DE LA <span class="text-dark">COMPRA</span></h2>
 
     <table class="table">
         <thead>
@@ -29,7 +32,7 @@
                      <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.cantidad }}" class="form-control mr-2">
                     </td>
                      <td>  
-                        <input type="checkbox" name="montar_domicilio" {% if item.montar_domicilio %} checked {% endif %}>
+                        <input type="checkbox" name="montar_domicilio" {% if item.montar_domicilio %} checked {% endif %}> Precio del montaje: 15€/producto
                     </td>
                     <td> 
                         <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>

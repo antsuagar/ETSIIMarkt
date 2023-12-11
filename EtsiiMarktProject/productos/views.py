@@ -43,9 +43,9 @@ def catalogo2(request):
     categorias = Categoria.objects.all()
     fabricantes = Fabricante.objects.all()
 
-    if q_fabricante=='Fabricante' or q_fabricante=='Seleccione un fabricante':
+    if q_fabricante=='Todos los fabricantes' or q_fabricante=='Seleccione un fabricante':
         q_fabricante=''
-    if q_categoria=='Electrodomestico' or q_categoria=='Seleccione una categoría':
+    if q_categoria=='Todos los electrodomésticos' or q_categoria=='Seleccione una categoría':
         q_categoria=''
     if q_precioMin=='':
         q_precioMin=0

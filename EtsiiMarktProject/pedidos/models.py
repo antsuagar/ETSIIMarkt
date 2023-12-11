@@ -45,7 +45,7 @@ class Pedido(models.Model):
         return productos
 
     def __str__(self):
-        return str(self.id)
+        return "Pedido con con id " + str(self.id)
 
 class ProductoPedido(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
@@ -55,8 +55,10 @@ class ProductoPedido(models.Model):
 
     @property
     def get_total(self):
-        total=self.producto.precio*self.cantidad
-        return total
+        if self.montar_domicilio==True:
+            return self.producto.precio*self.cantidad+self.cantidad*15
+        else:
+            return self.producto.precio*self.cantidad
 
 class DireccionEnvio(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
