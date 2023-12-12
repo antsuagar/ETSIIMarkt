@@ -31,12 +31,14 @@
         {% endfor %}
     </ul>
     {% endif %}
+    {% if producto.imagen %}
     {% load static %}
     <a href="{{producto.imagen.url}}" target="_blank">
         {% if producto.imagen %}
             <img src="{{producto.imagen.url}}" class="img-fluid">
         {% endif %}
     </a>
+    {% endif %}
 </div>
 
 
