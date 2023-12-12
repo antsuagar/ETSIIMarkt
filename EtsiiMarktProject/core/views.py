@@ -10,7 +10,8 @@ def index(request):
     user = request.user
     items = list(Producto.objects.all())
     productos = Producto.objects.all().order_by('?')[:4]
-    categorias = Categoria.objects.all()
+    categorias1 = Categoria.objects.all()
+    categorias=categorias1.exclude(nombre='Todos los electrodomésticos')
     return render(request, 'home.html', {'productos': productos, 'categorias': categorias, 'user': user})
 
 def nosotros(request):  
@@ -18,3 +19,6 @@ def nosotros(request):
 
 def devoluciones(request):  
     return render(request, 'empresa/devoluciones.html')
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)

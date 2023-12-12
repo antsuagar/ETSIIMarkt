@@ -58,6 +58,7 @@ def obtener_username_por_correo_cliente(correo_cliente):
         return None
     
 class CustomUserChangeForm(UserChangeForm):
+    password = None
     class Meta:
         model = User  
         fields = ['first_name', 'last_name', 'email']  

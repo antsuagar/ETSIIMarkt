@@ -218,8 +218,13 @@ def pedidos_usuario(request):
         if id_pedido=='':
             messages.success(request, 'Para poder hacer seguimiento de sus pedidos, registrese o indique número de su pedido')            
             return render(request, 'envios/seguimiento.html')
-        pedido = get_object_or_404(Pedido, id=id_pedido)
-        pedidos =[pedido]
+        try:
+            pedido = Pedido.objects.get(id=id_pedido)
+            pedidos = [pedido]
+        except Pedido.DoesNotExist:
+            messages.error(request, 'El pedido especificado no existe. Por favor, verifique el número del pedido.')
+            pedidos = []  # Define una lista vacía para que la vista muestre que no hay pedidos
+
     
     return render(request, 'envios/seguimiento.html', {'pedidos': pedidos})
 
