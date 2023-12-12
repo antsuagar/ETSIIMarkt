@@ -19,6 +19,3 @@ def nosotros(request):
 
 def devoluciones(request):  
     return render(request, 'empresa/devoluciones.html')
-
-def custom_404(request, exception):
-    return render(request, '404.html', status=404)

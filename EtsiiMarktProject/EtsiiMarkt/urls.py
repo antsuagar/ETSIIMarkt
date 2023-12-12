@@ -53,8 +53,6 @@ urlpatterns = [
     path('logout_personalizado', logout_personalizado, name='logout_personalizado'),
     path('clientes/direccion_envio/', editar_direccion_envio, name='editar_direccion_envio'),
 ]
-
-handler404 = 'core.views.custom_404'
     
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
