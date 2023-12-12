@@ -29,7 +29,7 @@
                 <td>
                     <form action="{% url 'actualizar' item.producto.id %}" method="post" class="form-inline">
                         {% csrf_token %}
-                     <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.cantidad }}" class="form-control mr-2">
+                     <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.cantidad|add:item.cantidad }}" class="form-control mr-2">
                     </td>
                      <td>  
                         <input type="checkbox" name="montar_domicilio" {% if item.montar_domicilio %} checked {% endif %}> Precio del montaje: 15€/producto
