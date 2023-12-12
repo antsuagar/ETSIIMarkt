@@ -12,16 +12,18 @@
             <li class="list-group-item"><h3>Fabricante:</h3> {{ producto.fabricante }}</li>
             <li class="list-group-item"><h3>Precio:</h3> {{ producto.precio }}€</li>
             <li class="list-group-item"><h3>Descripción:</h3> {{ producto.descripcion }}</li>
-            <li class="list-group-item"><h3>Cantidad disponible:</h3>{% if agotado %} Lo sentimos este producto esta agotado {% else %} {{ producto.cantidad }} unidades  {% endif %}</li>
+            <li class="list-group-item"><h3>Cantidad disponible:</h3>{% if producto.cantidad == 0 %} Lo sentimos este producto esta agotado {% else %} {{ producto.cantidad }} unidades  {% endif %}</li>
           </ul>        
     </div>
     <div class="col-5 ">
+        {% if producto.cantidad > 0 %}
         <form class="mb-3" role="cesta" method="get" action="{% url 'detalle' producto.id %}">
             <div class="input-group">
                 <input class="form-control" type="number" name="cantidad" min="1" max="{{ producto.cantidad }}" id="cantidad" placeholder="Cantidad">
                 <button class="btn btn-outline-secondary" type="submit">Añadir al carrito</button>
             </div>
         </form>
+        {% endif %}
         {% if messages %}
         <ul class="messages">
         {% for message in messages %}
