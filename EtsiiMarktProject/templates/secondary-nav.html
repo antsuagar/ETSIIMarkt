@@ -14,16 +14,6 @@
             Productos
           </button>
           </a>
-          <!--<div class="collapse show" id="home-collapse">
-            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="/busqueda/?categoria=Televisi%C3%B3n" class="link-dark rounded">Television</a></li>
-              <li><a href="#" class="link-dark rounded">Informática</a></li>
-              <li><a href="#" class="link-dark rounded">Electrodomésticos</a></li>
-              <li><a href="#" class="link-dark rounded">Juegos y consolas</a></li>
-              <li><a href="#" class="link-dark rounded">Telefonía</a></li>
-              <li><a href="#" class="link-dark rounded">Fotografía</a></li>
-            </ul>
-          </div>-->
         </li>
         <li class="mb-1">
           <a href="/nosotros">
@@ -32,6 +22,7 @@
           </button>
         </a>
         </li>
+        {% if user.is_authenticated %}
         <li class="mb-1">
           <a href="/perfil"><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
             Área de clientes
@@ -46,6 +37,15 @@
             </ul>
           </div>
         </li>
+        {% else %}
+        <li class="mb-1">
+          <a href="/seguimiento">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+            Mis pedidos
+          </button>
+        </a>
+        </li>
+        {% endif %}
       </ul>
     </div>    
   </div>

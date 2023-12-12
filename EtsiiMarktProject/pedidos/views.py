@@ -146,7 +146,7 @@ def procesar_pedido(request):
                 source=token,
                 
             )
-            
+
         except stripe.error.CardError as e:
             # El pago ha sido rechazado por Stripe, redirigir a la página de error
             url = reverse('error', kwargs={'error':e.error.message})
@@ -195,7 +195,7 @@ def procesar_pedido(request):
     pedido.save()
 
 
-    messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente. Se ha enviado un correo a la dirección indicada con el id de seguimiento y puede hacer el seguimiento de su seguimiento en la pestaña Pedidos realizados'.format(id_pedido))
+    messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente. Se ha enviado un correo a la dirección indicada con el id de seguimiento. También puede revisar sus pedidos en el Área de clientes > Mis pedidos.'.format(id_pedido))
     message_list = list(messages.get_messages(request))   
     # Obtener el último mensaje
     last_message = message_list[-1] if message_list else None
@@ -231,9 +231,11 @@ def pedidos_usuario(request):
 
 
 def error(request, error):
-    #error_msg = request.GET.get('error', 'Error en el pago')
-    context = {'error': error}
-    return render(request, 'pedidos/payment_failure.html', context)
+    messages.error(request, 'Ocurrió un error al pagar con su tarjeta.')
+    message_list = list(messages.get_messages(request))   
+    # Obtener el último mensaje
+    last_message = message_list[-1] if message_list else None
+    return render(request, 'pedidos/payment_failure.html', {'last_message': last_message})
 
 @login_required
 def agregar_reclamacion(request, pedido_id):

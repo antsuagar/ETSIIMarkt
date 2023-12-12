@@ -6,56 +6,57 @@
 
 <h2>PEDIDOS REALIZADOS</h2>
 
-<div class="pedidos-realizados">
+<div class="pedidos-realizados row">
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
+{% include 'message.html' %}   
 
 {% if not user.is_authenticated %}
-<form class="d-flex" role="search" method="get" action="{% url 'seguimiento' %}">
+<div class="row border p-3 ">
+<form role="search" method="get" action="{% url 'seguimiento' %}" >
+  <div class="col-12 mb-3">
     <label for="search">Introduce tu número de pedido:</label>
-      <br>
-    <input class="form-control me-2" type="text" name="idPedido" id="search">
+  </div>
+  <div class="col-12">
+    <input class="form-control mb-3" type="text" name="idPedido" id="search">
     <button class="btn btn-secondary" type="submit">Buscar</button>
-</form>  
+  </div>
+</form>
+</div>
 {% endif %}
-
-<br>
-<div class="row">
-  {% for pedido in pedidos %}   
-      <div class="col-3">
-          <div class="card p-2">
-              <div class="card-body">
-              <h5 class="card-title">Fecha de pedido: {{ pedido.fecha_pedido|date:"d/m/Y" }}</h5>
-              <hr>
-
+  {% for pedido in pedidos %}
+  <div class="border p-3 mb-5">
+  <div class="border row p-3 fw-bold bg-body-secondary mb-3">
+    <div class="col-3">Fecha: {{ pedido.fecha_pedido|date:"d/m/Y" }}</div>
+    <div class="col-3">Estado: {{ pedido.get_estado }}</div>
+    <div class="col-3">Total: {{ pedido.get_total_carrito }} €</div>
+    <div class="col-3">
+      {% if user.is_authenticated %}
+        <a class="btn btn-secondary" href="{% url 'agregar_reclamacion' pedido.id %}">Crear reclamación</a>
+      {% endif %}
+    </div>
+  </div> 
+  <div class="row">
+  <table class="table col-12">    
+    <tr>
+      <th>Producto</th>
+      <th>Unidades</th>
+      <th>Precio</th>
+    </tr>
             {% for item in pedido.get_lista_de_productos_carrito %}
             <tr>
-                <p class="card-text">{{ item.producto.nombre }}</p>
-                <td class="card-text">&nbsp;&nbsp; - Unidades: {{ item.cantidad }}</td>
-                <p class="card-text">&nbsp;&nbsp; - Coste: {{ item.get_total }} €</p>
-            {% endfor %}
-            <hr>    
-            <label for="estado"></label>
-                <td>Estado: {{ pedido.get_estado }}</td>
-                <label for="total"></label>
-                <td>Coste total: {{ pedido.get_total_carrito }} €</td>
+                <td>{{ item.producto.nombre }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.get_total }} €</td>
             </tr>
-              </div>
-          </div>
-          {% if user.is_authenticated %}
-          <div class="text-center">
-            <a class="btn btn-secondary" href="{% url 'agregar_reclamacion' pedido.id %}">Agregar reclamación</a>
-          </div>
-          {% endif %}
+            {% endfor %}
+     
+      </table>        
+         
+        </div>
       </div>
   {% endfor %}
-</div>
+      
 </div>
 
 

@@ -5,8 +5,6 @@
 {% block content %}
 
 <h2>Error en el pago</h2>
-<div class="border p-3">
-    <p>Tu pago no se ha podido realizar a causa del siguiente error: {{ error }}.</p>
-</div>
+{% include 'message.html' %}   
 
 {% endblock %}
