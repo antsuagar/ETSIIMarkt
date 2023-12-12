@@ -55,11 +55,6 @@ textarea {
     padding: 10px 10px;
     border: none;
     cursor: pointer;
-/*
-    &:hover {
-        background-color: darken(var(--secondary-color), 10%);
-    }
-*/
 }
 
 .lista-footer li{

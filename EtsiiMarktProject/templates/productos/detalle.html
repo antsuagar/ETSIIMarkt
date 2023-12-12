@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>{{ producto.nombre }}</h2>  
-        
+{% include 'message.html' %}   
 <div class="row producto mb-3">
     <div class="col-7">
         <ul class="list-group">
@@ -21,14 +21,8 @@
                 <input class="form-control" type="number" name="cantidad" min="1" max="{{ producto.cantidad }}" id="cantidad" placeholder="Cantidad">
                 <button class="btn btn-outline-secondary" type="submit">Añadir al carrito</button>
             </div>
-        </form>
-        {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+        </form>        
+        
     {% load static %}
     <a href="{{producto.imagen.url}}" target="_blank">
         {% if producto.imagen %}

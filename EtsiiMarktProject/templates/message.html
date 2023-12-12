@@ -1,0 +1,25 @@
+{% if messages %}
+{% if last_message %}
+        {% if last_message.tags == 'success' %}
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <div>
+                    {{ last_message }}
+                </div>
+            </div>
+        {% elif last_message.tags == 'error' %}
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="bi bi-x-circle-fill me-2"></i>
+                <div>
+                    {{ last_message }}
+            </div>
+        {% else %}
+            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>
+                <div>
+                    {{ last_message }}
+                </div>
+            </div>
+        {% endif %}
+        {% endif %}
+{% endif %}

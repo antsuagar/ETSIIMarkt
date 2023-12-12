@@ -146,14 +146,9 @@ def procesar_pedido(request):
                 source=token,
                 
             )
-
-            # Redirigir a la página de éxito si el pago se procesa correctamente
-            #return redirect(reverse('exito'), amount=cargo.amount, currency=cargo.currency)
-
+            
         except stripe.error.CardError as e:
             # El pago ha sido rechazado por Stripe, redirigir a la página de error
-            #error_msg = e.error.message
-            #return redirect('error', error=error_msg)
             url = reverse('error', kwargs={'error':e.error.message})
             return HttpResponseRedirect(url)    
         
@@ -201,9 +196,11 @@ def procesar_pedido(request):
 
 
     messages.success(request, 'Su pedido con id: {0}, se ha completado correctamente. Se ha enviado un correo a la dirección indicada con el id de seguimiento y puede hacer el seguimiento de su seguimiento en la pestaña Pedidos realizados'.format(id_pedido))
-    
+    message_list = list(messages.get_messages(request))   
+    # Obtener el último mensaje
+    last_message = message_list[-1] if message_list else None
  
-    return render(request, 'envios/resultado_envio.html')
+    return render(request, 'envios/resultado_envio.html', {'last_message': last_message})
 
 def pedidos_usuario(request):
     
@@ -221,7 +218,11 @@ def pedidos_usuario(request):
         pedido = get_object_or_404(Pedido, id=id_pedido)
         pedidos =[pedido]
     
-    return render(request, 'envios/seguimiento.html', {'pedidos': pedidos})
+    message_list = list(messages.get_messages(request))   
+    # Obtener el último mensaje
+    last_message = message_list[-1] if message_list else None
+
+    return render(request, 'envios/seguimiento.html', {'pedidos': pedidos, 'last_message': last_message})
 
 
 def error(request, error):
@@ -257,7 +258,11 @@ def agregar_reclamacion(request, pedido_id):
     else:
         form = ReclamacionForm()
 
-    return render(request, 'envios/agregar_reclamacion.html', {'pedido': pedido, 'form': form})
+    message_list = list(messages.get_messages(request))   
+    # Obtener el último mensaje
+    last_message = message_list[-1] if message_list else None
+
+    return render(request, 'envios/agregar_reclamacion.html', {'pedido': pedido, 'form': form, 'last_message': last_message})
 
 @login_required
 def reclamaciones_cliente(request):

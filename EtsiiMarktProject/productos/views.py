@@ -93,7 +93,11 @@ def detalle(request, producto_id):
     producto.cantidad = producto.cantidad-int(cantidadPedida)
     producto.save()
     messages.success(request, 'El producto se ha añadido al carrito de compra')
-    return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones, 'agotado': producto.producto_agotado})
+    message_list = list(messages.get_messages(request))   
+    # Obtener el último mensaje
+    last_message = message_list[-1] if message_list else None
+
+    return render(request, 'productos/detalle.html', {'producto': producto, 'opiniones': opiniones, 'agotado': producto.producto_agotado, 'last_message': last_message})
 
 def agregar_opinion(request, producto_id):
     producto = Producto.objects.get(pk=producto_id)
