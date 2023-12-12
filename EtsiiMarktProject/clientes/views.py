@@ -26,6 +26,7 @@ def register(request):
 
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
+            direccionCliente = DireccionCliente.objects.get_or_create(user=user)
             return redirect('/')
         else:
             data['form'] = user_creation_form
