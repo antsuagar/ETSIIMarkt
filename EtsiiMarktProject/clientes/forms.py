@@ -65,4 +65,4 @@ class CustomUserChangeForm(UserChangeForm):
 class UserDireccionForm(forms.ModelForm):
     class Meta:
         model = DireccionCliente
-        fields = ['direccion', 'ciudad', 'postal']
+        fields = ['direccion', 'ciudad', 'postal', 'formaPago']

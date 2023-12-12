@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class DireccionCliente(models.Model):
 
     PAGO_CHOICES = [
-        ('contrarrempolso', 'Contrareenbolso'),
+        ('contrarrempolso', 'Contrareembolso'),
         ('pasarela', 'Tarjeta de crédito'),
     ]
 

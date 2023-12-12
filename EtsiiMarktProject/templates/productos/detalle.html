@@ -44,7 +44,7 @@
     <ul class="list-group mb-3">
         <li class="list-group-item active" aria-current="true">OPINIONES</li>
         {% for opinion in opiniones %}
-        <li class="list-group-item"><strong>{{ opinion.user.username }}</strong>: {{ opinion.cuerpo }}</li>
+        <li class="list-group-item"><strong>{{ opinion.user.username }}</strong>: {{ opinion.tu_opinion }}</li>
         {% empty %}
         <li class="list-group-item">No existen opiniones sobre este producto.</li>
         {% endfor %}
