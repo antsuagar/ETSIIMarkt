@@ -19,6 +19,7 @@ from django.urls import path, include
 #from clientes.views import RegistroClienteView
 from clientes.views import IniciarSesionView, editar_direccion_envio, logout_personalizado, modificar_datos_usuario, perfil, register
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
 from core.views import index, nosotros, devoluciones
 from productos.views import catalogo, catalogo2
 from pedidos.views import actualizar, eliminar, formulario_envio, procesar_pedido, pedidos_usuario, error

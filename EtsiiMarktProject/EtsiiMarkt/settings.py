@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+from datetime import timedelta
 import os
 import sys
 from pathlib import Path
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-!tsyduwhsm*d3vcbsblfx-9sj1%$u0qfu8rz2lu-5^$9@ls@iq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -59,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'django.contrib.staticfiles.middleware.StaticFilesMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'EtsiiMarkt.urls'
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_auto_logout.context_processors.auto_logout_client',
             ],
         },
     },
@@ -148,3 +150,9 @@ LOGOUT_REDIRECT_URL = 'index'
 
 STRIPE_PUBLIC_KEY = 'pk_test_51OJe72EuWRxRJueoJYOkv7WighMdCdzF2uEvKh4kSCSKWAiTGAe9UWPI8hqEFBqZ7amOHaoHRULjCYLLOmj2V5oq00pIBAY3zF'
 STRIPE_SECRET_KEY = 'sk_test_51OJe72EuWRxRJueoRLXhuB2us5H5nJFQRn02WrVfTyGtZGVopiWMyfDJHk7y0mD7wVXnKPL5UXn7lkoIwjafoemJ0022EMLQvB'
+
+AUTO_LOGOUT = {
+    'IDLE_TIME': timedelta(minutes=30),
+    'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+    'MESSAGE': 'La sesión ha expirado',
+}
