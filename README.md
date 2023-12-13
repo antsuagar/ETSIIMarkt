@@ -36,3 +36,12 @@ Una vez ahí podeis hacer varias cosas:
 - Abrir cmd de windows, ir carpeta c:\sonarqube\bin\windows-x86-64 y ejecutar StartSonar.bat para lanzar SonarQube.
 - En otra cmd ir a la carpeta del proyecto EtsiiMarktProject y ejecutar el comando: sonar-scanner -Dsonar.projectKey=EtsiiMarktProject -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true
 - Abrir en el navegador la URL http://localhost:9000
+
+## **INSTRUCCIONES PARA DESPLEGAR LA APLICACIÓN** ##
+
+- Hemos creado un contenedor con PODMAN que se llama etsiimark.tar y que está en la carpeta donde se encuentra el proyecto y los documentos.
+- Para desplegarla es preciso tener instalado Podman
+- Situarse en la carpeta donde se encuentra el fichero y ejecutar: podman load -i etsiimarkt.tar
+- Se cargará la imagen y aparece: Loaded image: localhost/miimagen:02
+- Ahora cargamos la imagen: podman run -p 8000:8000 -d miimagen:02
+- Ya podemos ver la aplicación en el navegador mediante localhost:8000
