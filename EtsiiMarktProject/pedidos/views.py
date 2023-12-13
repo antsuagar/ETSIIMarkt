@@ -181,6 +181,9 @@ def procesar_pedido(request):
     except SMTPRecipientsRefused as e:
         messages.error('Error, la dirección de correo introducida: {0} es invalida'.format(email))
         return render(request, 'envios/formulario_envio.html') 
+    except Exception as e:
+        messages.error('Lo sentimos, algo ocurrio con el correo de confirmación, pongase en contacto con la atención al cliente, disculpe las molestias.'.format(email))
+        return render(request, 'envios/resultado_envio.html')
 
     direccion_pedido, created = DireccionEnvio.objects.get_or_create(user=user, pedido=pedido, direccion=direccion, ciudad=ciudad, codigo_postal=codigo_postal)
     pedido.fecha_pedido = fecha_pedido

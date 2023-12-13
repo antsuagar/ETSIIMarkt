@@ -33,7 +33,7 @@
             {% endif %}
           </select>
         <br>
-        {% if user.is_authenticated and %}
+        {% if user.is_authenticated %}
         <input type="hidden" name="destinatario" required value = "{{destinatario}}"></p>
         <input type="hidden" name="email" required value = "{{email}}"></p>
         <p><label for="direccion">Dirección de Envío:</label>
@@ -45,6 +45,14 @@
         {% else %}
         <p><label for="destinatario">Destinatario:</label>
         <input type="text" name="destinatario" required value = "{{destinatario}}"></p>
+        <p><label for="direccion">Dirección de Envío:</label>
+            <input type="text" name="direccion" required value = "{{direccion}}"></p>
+
+            <p><label for="ciudad">Ciudad:</label>
+            <input type="text" name="ciudad" required value = "{{ciudad}}"></p>
+
+            <p><label for="postal">Código postal:</label>
+            <input type="number" name="postal" required value = "{{postal}}"></p>
         {% endif %}
 
         {% if user.is_authenticated %}
@@ -54,17 +62,9 @@
             <input type="email" name="email" required value = "{{email}}"></p>
         {% endif %}
 
-        <p><label for="direccion">Dirección de Envío:</label>
-        <input type="text" name="direccion" required value = "{{direccion}}"></p>
-
-        <p><label for="ciudad">Ciudad:</label>
-        <input type="text" name="ciudad" required value = "{{ciudad}}"></p>
-        
-        <p><label for="postal">Código postal:</label>
-        <input type="number" name="postal" required value = "{{postal}}"></p>
-        
         <p><input name="pedido_id" type="hidden" value="{{pedido_id}}" /></p>
-         
+
+
 
         <button class="btn btn-secondary" type="submit">Continuar</button>
     </form>
